@@ -1,0 +1,15 @@
+{
+  "database": {
+    "client": "pg",
+    "connection": {
+      "user": "postgres",
+      "database": "cls_development"
+    },
+    "migrations": {
+      "directory": "./db/migrations"
+    },
+    "seeds": {
+      "directory": "./db/seeds"
+    }
+  }
+}
