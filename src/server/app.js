@@ -25,7 +25,7 @@ app.use(require("server/middleware/health").default);
 // );
 app.use("/public", express.static("public"));
 // app.use("/sandbox", require("server/middleware/sandbox").default);
-app.use("/api", require("server/middleware/api").default);
+// app.use("/api", require("server/middleware/api").default);
 // app.use("/api/v1", require("server/middleware/externalAPI/v1").default);
 
 if (process.env.NODE_ENV === "development") {
