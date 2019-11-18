@@ -21,6 +21,6 @@ compiler.watch({}, (err, stats) => {
   console.log(stats.toString());
   if (!serverProcess && !stats.hasErrors()) {
     console.log("Launching built server...");
-    serverProcess = fork("./dist/server.js");
+    serverProcess = fork("./build/server.js");
   }
 });

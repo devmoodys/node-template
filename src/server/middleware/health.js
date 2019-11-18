@@ -1,4 +1,5 @@
 import { Router } from "express";
+require("services/check");
 
 const router = Router();
 

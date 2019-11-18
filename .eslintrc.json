@@ -1,0 +1,38 @@
+{
+  "env": {
+    "es6": true,
+    "jest": true,
+    "node": true,
+    "browser": true
+  },
+  "parser": "babel-eslint",
+  "plugins": [
+    "jest",
+    "prettier"
+  ],
+  "rules": {
+    "no-unused-vars": [
+      "error",
+      {
+        "args": "after-used",
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }
+    ],
+    "no-var": "error",
+    "no-useless-escape": "off",
+    "prettier/prettier": "error",
+    "no-debugger": "off",
+    "react/display-name": ["<enabled>",
+      {
+        "ignoreTranspilerName": true
+      }
+    ]
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:jest/recommended",
+    "prettier"
+  ]
+}
