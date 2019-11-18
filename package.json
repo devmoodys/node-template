@@ -95,7 +95,7 @@
     "connect-redis": "^3.3.3",
     "cors": "^2.8.4",
     "css-loader": "^0.28.7",
-    "csv-parse": "^2.0.0",
+    "csv-parse": "^4.4.6",
     "csvjson": "^5.1.0",
     "dotenv": "^6.0.0",
     "enzyme": "^3.2.0",
