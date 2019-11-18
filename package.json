@@ -4,9 +4,11 @@
   "description": "A backend node app for CLS",
   "main": "app.js",
   "scripts": {
+    "clean": "rimraf build/*",
     "build": "npx webpack",
     "start": "node ./dist/server.js",
     "watch": "node ./bin/dev-watch",
+    "predev": "npm run clean",
     "dev": "npm run watch"
   },
   "author": "",
