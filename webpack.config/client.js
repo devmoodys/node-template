@@ -40,7 +40,9 @@ const commonConfig = {
             options: {
               name: "[name].[ext]",
               outputPath: "images/",
-              publicPath: "/dist/"
+              publicPath: function(url) {
+                url.replace(url, "/dist/images/");
+              }
             }
           }
         ]
@@ -53,7 +55,9 @@ const commonConfig = {
             options: {
               name: "[name].[ext]",
               outputPath: "fonts/",
-              publicPath: "/dist/"
+              publicPath: function(url) {
+                url.replace(url, "/dist/fonts/");
+              }
             }
           }
         ]
