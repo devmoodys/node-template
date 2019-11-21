@@ -1,0 +1,26 @@
+.GhostButtonLink {
+  @include small-body-text;
+  align-items: center;
+  background-color: transparent;
+  border-radius: 1px;
+  box-sizing: border-box;
+  color: $white;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 1;
+  padding: 10px 8px 9px;
+  text-align: center;
+  text-decoration: none;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+
+  &--enricheddata,
+  &--retailmarketpoint {
+    background-color: #343441;
+    &:hover {
+      background-color: rgba(52, 52, 65, 0.15);
+    }
+  }
+}

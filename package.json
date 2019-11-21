@@ -8,8 +8,7 @@
     "build": "npx webpack",
     "start": "node ./dist/server.js",
     "watch": "node ./bin/dev-watch",
-    "predev": "npm run clean",
-    "dev": "npm run watch"
+    "dev": "npm run clean & redis-server & npm run watch"
   },
   "author": "",
   "license": "ISC",
@@ -140,7 +139,7 @@
     "query-string": "^5.0.1",
     "raf": "^3.4.0",
     "ramda": "^0.25.0",
-    "react": "^16.5",
+    "react": "16.5",
     "react-click-outside": "^3.0.1",
     "react-dom": "^16.2.0",
     "react-hot-loader": "^3.1.3",
@@ -168,7 +167,7 @@
     "stylelint-scss": "^2.2.0",
     "supertest": "^3.0.0",
     "uglifyjs-webpack-plugin": "^1.1.5",
-    "webpack": "^3.10.0",
+    "webpack": "3.10.0",
     "webpack-dev-middleware": "^2.0.3",
     "webpack-hot-middleware": "^2.21.0",
     "webpack-manifest-plugin": "^1.3.2",

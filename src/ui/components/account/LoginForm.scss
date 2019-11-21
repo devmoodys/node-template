@@ -1,0 +1,102 @@
+
+.LoginForm {
+  user-select: none;
+  min-height: 310px;
+  margin-top: 70px;
+
+  img {
+    height: 250px;
+  }
+
+  &__verified {
+    img {
+      display: none;
+    }
+  }
+
+  &__text-verified {
+    margin-right: 35%;
+  }
+
+  &__content {
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+  }
+
+  &__logo-image {
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 15px
+  }
+
+  &__Header-title, &__Header-description, &__Header-title {
+    margin-bottom: 10px;
+  }
+
+  &__Header-title {
+    font-size: 40px;
+    color: #559dfa;
+    line-height: 45px;
+  }
+
+  &__Header-description {
+    width: 530px;
+    font-size: 25px;
+    line-height: 35px;
+  }
+
+  &__button-container {
+    position: relative;
+    margin-top: 35px;
+  }
+
+  &__button {
+    @include caption-text;
+    font-size: 16px;
+    background-color: $moody-blue;
+    // border: 0;
+    border-radius: 5px;
+    color: $white;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    margin-right: 26px;
+    margin-bottom: 20px;
+    width: 220px;
+    padding: 12px;
+    // text-transform: uppercase;
+    text-align: center;
+  }
+
+  &__sign_in {
+    padding: 10px 25px;
+    width: 60px;
+    margin-bottom: 0;
+  }
+
+  &__button:hover {
+    box-shadow: 2px 2px 4px #aaaaaa;
+  }
+
+  &__button-text {
+    margin-top: 5px;
+    font-size: 12px;
+  }
+
+  &__button-text-small {
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 12px;
+  }
+
+  &__error-message {
+    color: red;
+    background: white;
+    padding: 2px;
+    width: 200px;
+  }
+
+  input[type="text"]{
+    background: white;
+  }
+}

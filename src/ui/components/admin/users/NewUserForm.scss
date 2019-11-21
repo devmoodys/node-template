@@ -1,0 +1,88 @@
+.NewUserForm {
+  margin-top: 55px;
+
+  &__label {
+    @include small-caption-text;
+    color: $gray-91;
+  }
+
+  &__field {
+    align-items: center;
+    display: flex;
+  }
+
+  &__input {
+    @include body-text;
+    background-color: $white;
+    border: solid 1px $gray-e4;
+    height: 50px;
+    margin-top: 11px;
+    padding-left: 15px;
+    width: 360px;
+
+    &--error {
+      border-color: $form-error-red;
+    }
+  }
+
+  &__select {
+    @include body-text;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background-color: $white;
+    border: solid 1px $gray-e4;
+    -webkit-border-radius: 0px;
+    cursor: pointer;
+    height: 50px;
+    margin-top: 11px;
+    text-indent: 10px;
+    width: 375px;
+
+    &--error {
+      border-color: $form-error-red;
+    }
+  }
+
+  &__select-caret {
+    background-image: url(../images/icon-downarrow.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    height: 50px;
+    margin-top: 11px;
+    pointer-events: none;
+    position: relative;
+    right: 50px;
+    width: 50px;
+  }
+
+  &__error {
+    @include body-text;
+    color: $form-error-red;
+    margin-left: 32px;
+    margin-top: 11px;
+  }
+
+  &__role, &__company {
+    margin-top: 10px;
+
+    .NewUserForm__error {
+      margin-left: -18px;
+    }
+  }
+
+  &__password {
+    margin-top: 47px;
+  }
+
+  &__confirm-password {
+    margin-top: 10px;
+  }
+
+  &__submit {
+    height: 30px;
+    margin-left: 100px;
+    margin-top: 61px;
+    width: 160px;
+  }
+}

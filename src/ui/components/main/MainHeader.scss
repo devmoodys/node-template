@@ -1,0 +1,42 @@
+.MainHeader {
+  align-items: center;
+  background-color: $moody-blue;
+  box-sizing: border-box;
+  display: flex;
+  height: 47px;
+  padding: 0 65px;
+
+  &__brand {
+    align-items: center;
+    display: flex;
+  }
+
+  &__right-nav {
+    display: flex;
+    margin-left: auto;
+  }
+
+  &__button {
+    margin-right: 38px;
+    padding: 8px 14px !important;
+  }
+  &__closeReport {
+    cursor: pointer;
+    margin: 10px;
+    margin-left: 30px;
+    font-size: 14px;
+    width: 202px;
+    padding: 5px 11px;
+    background-color: #edeff7;
+    border-radius: 9px;
+    &:hover {
+      background-color:#dfe3f2;
+    }
+  }
+
+  @media print {
+    &__closeReport {
+      display: none;
+    }
+  }
+}

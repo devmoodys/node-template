@@ -1,0 +1,11 @@
+.CompanyDashboard {
+  &__new-user-button-container {
+    margin-bottom: 10px;
+    margin-top: 5px;
+    text-align: right;
+  }
+
+  &__new-user-button {
+    padding: 8px 20px !important;
+  }
+}

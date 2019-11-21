@@ -1,0 +1,53 @@
+.preview__import {
+  display: flex;
+  justify-content: flex-end;
+  padding: 11px 24px;
+
+  &--cmm {
+    background-color: rgba($cmm-color, 0.6);
+  }
+
+  &--compstak {
+    background-color: rgba($compstak-color, 0.6);
+  }
+
+  &--val {
+    background-color: rgba($val-color, 0.6);
+  }
+
+  &--cmbs {
+    background-color: rgba($cmbs-color, 0.6);
+  }
+
+  &--cls {
+    background-color: rgba($cls-color, 0.6);
+  }
+
+  &--reis {
+    background-color: rgba($reis-color, 0.6);
+  }
+}
+
+.preview-import--spinner-container {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  width: 100%;
+}
+
+.preview__import__dropdown {
+  -webkit-appearance: none;
+  background-color: $white;
+  border: solid 1px $gray-e4;
+  -webkit-border-radius: 0px;
+  height: 30px;
+  margin-right: 6px;
+  padding-left: 14px;
+  vertical-align: middle;
+  width: 165px;
+}
+
+.preview__import__button {
+  width: 80px;
+}

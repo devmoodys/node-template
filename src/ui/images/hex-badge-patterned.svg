@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="263px" height="294px" viewBox="0 0 263 294" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>-g-CLS tag</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="2.9037211%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#457DD3" offset="0%"></stop>
+            <stop stop-color="#5044B1" offset="47.5649134%"></stop>
+            <stop stop-color="#06578C" offset="100%"></stop>
+        </linearGradient>
+        <polygon id="path-2" points="0 214.631544 127.153052 286.190195 254.306104 214.631544 254.306104 71.5586512 127.153052 0 0 71.5586512"></polygon>
+        <filter x="-2.2%" y="-1.9%" width="105.1%" height="104.5%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="1" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.221699617   0 0 0 0 0.221699617   0 0 0 0 0.221699617  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-5">
+            <stop stop-color="#4E51B9" offset="0.370303468%"></stop>
+            <stop stop-color="#4D55BB" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="V6" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="-g-CLS-tag" transform="translate(3.000000, 3.000000)">
+            <mask id="mask-3" fill="white">
+                <use xlink:href="#path-2"></use>
+            </mask>
+            <g id="Path">
+                <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-2"></use>
+                <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+            </g>
+            <g id="Group-18" mask="url(#mask-3)" fill="url(#linearGradient-5)" fill-rule="nonzero">
+                <g transform="translate(94.335764, 74.966669) rotate(-2.000000) translate(-94.335764, -74.966669) translate(-94.026776, -45.779253)">
+                    <polygon id="Rectangle" transform="translate(190.668924, 125.177345) rotate(-28.000000) translate(-190.668924, -125.177345) " points="7.56117019 120.597603 373.825051 119.215217 373.776678 129.757087 7.51279683 131.139474"></polygon>
+                    <polygon id="Rectangle" transform="translate(209.616771, 145.885013) rotate(-28.000000) translate(-209.616771, -145.885013) " points="26.5438144 137.121155 392.773487 135.682385 392.689728 154.648872 26.4600552 156.087642"></polygon>
+                    <polygon id="Rectangle-Copy" transform="translate(170.319837, 104.821442) rotate(-28.000000) translate(-170.319837, -104.821442) " points="-12.7879168 100.2417 353.475964 98.8593138 353.427591 109.401184 -12.8362901 110.783571"></polygon>
+                    <polygon id="Rectangle-Copy-2" transform="translate(163.640346, 88.255308) rotate(-28.000000) translate(-163.640346, -88.255308) " points="-19.4952341 86.9090194 346.796002 85.6855793 346.775926 89.6015958 -19.5153106 90.8250359"></polygon>
+                </g>
+            </g>
+            <g id="LINES" mask="url(#mask-3)" fill="url(#linearGradient-5)" fill-rule="nonzero">
+                <g transform="translate(195.811377, 233.504104) scale(-1, -1) rotate(-2.000000) translate(-195.811377, -233.504104) translate(28.213212, 135.351745)">
+                    <polygon id="Rectangle-Copy" transform="translate(170.264289, 105.044489) rotate(-28.000000) translate(-170.264289, -105.044489) " points="-12.8434653 100.464747 353.420416 99.0823608 353.372042 109.624231 -12.8918387 111.006618"></polygon>
+                    <polygon id="Rectangle-Copy-2" transform="translate(163.584797, 88.478355) rotate(-28.000000) translate(-163.584797, -88.478355) " points="-19.5507826 87.1320665 346.740454 85.9086264 346.720377 89.8246429 -19.5708592 91.048083"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

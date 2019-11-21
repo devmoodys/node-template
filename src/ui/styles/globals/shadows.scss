@@ -1,0 +1,7 @@
+@mixin shadow-light {
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+@mixin shadow-heavy {
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+}

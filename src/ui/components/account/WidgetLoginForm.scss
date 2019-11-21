@@ -1,0 +1,60 @@
+.WidgetLoginForm {
+  display: table;
+  margin: 0 auto;
+  padding: 24px;
+  position: relative;
+  top: 50px;
+  h3 {
+    color: red;
+    font-size: 15px;
+    margin-bottom: 15px;
+  }
+}
+
+.WidgetLoginForm__fields li {
+  margin-bottom: 24px;
+}
+
+.WidgetLoginForm__fields > li > label {
+  flex: 0 90px;
+  max-width: 220px;
+}
+
+.WidgetLoginForm__input {
+  @include large-body-text;
+  background-color: rgba(255, 255, 255, 0.29);
+  border: 1px solid $gray-34;
+  border-radius: 4px;
+  color: $gray-34;
+  flex: 1 0 auto;
+  height: 28px;
+  margin-top: 5px;
+  padding: 6px 10px;
+  width: 300px;
+}
+
+.WidgetLoginForm__label {
+  @include large-body-text;
+}
+
+.WidgetLoginForm__submit {
+  @include caption-text;
+  background-color: #343441;
+  border: 0;
+  border-radius: 3px;
+  color: $white;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  margin-right: 26px;
+  padding: 6px 10px;
+  text-transform: uppercase;
+}
+
+.WidgetLoginForm__cmm-btn {
+  @include caption-text;
+  color: #343441;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  padding: 6px 10px;
+  text-decoration: none;
+}

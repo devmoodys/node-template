@@ -1,0 +1,26 @@
+.AdminHeader {
+  align-items: center;
+  background-color: $moody-blue;
+  box-sizing: border-box;
+  display: flex;
+  height: 47px;
+  padding: 0 65px;
+
+  &__brand {
+    align-items: center;
+    display: flex;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__right-nav {
+    display: flex;
+    margin-left: auto;
+  }
+
+  &__button {
+    margin-right: 38px;
+    padding: 8px 18px !important;
+  }
+}

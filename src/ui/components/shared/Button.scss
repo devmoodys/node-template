@@ -1,0 +1,33 @@
+.Button {
+  @include small-body-text;
+  align-items: center;
+  background-color: $gray-34;
+  border: none;
+  border-radius: 1px;
+  box-sizing: border-box;
+  color: $white;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 1;
+  padding: 10px 8px 9px;
+  text-decoration: none;
+
+  &:hover {
+    background-color: $black;
+  }
+
+  &:disabled {
+    background-color: rgba($white, 0.2);
+    color: rgba($white, 0.6);
+    cursor: default;
+  }
+
+  &--action {
+    background-color: $action-blue;
+    font-size: 13px;
+
+    &:hover {
+      background-color: $action-blue-dark;
+    }
+  }
+}

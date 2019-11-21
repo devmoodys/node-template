@@ -1,0 +1,14 @@
+.Modal {
+  background-color: $gray-f9;
+  bottom: 8px;
+  box-sizing: border-box;
+  position: fixed;
+  right: 55px;
+  width: 300px;
+  z-index: 100;
+
+  &,
+  &:before {
+    @include shadow-heavy;
+  }
+}

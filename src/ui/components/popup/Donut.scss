@@ -1,0 +1,137 @@
+.Donut {
+  &__container {
+    background-color: $white;
+    height: 265px;
+  }
+
+  &__percentile_header{
+    font-size: 20px;
+    color: #243376;
+    text-align: left;
+    padding-top: 15px;
+    display: block;
+    margin: 0 0 15px 20px;
+  }
+
+  &__chart_container {
+    position: relative;
+  }
+
+  &__location_score {
+    text-align: left;
+    margin-bottom: 30px;
+    margin-left: 20px;
+    letter-spacing: 0.5px;
+    font-size: 14px;
+    text-transform: none;
+    font-weight: 500;
+    color: #383838;
+}
+
+  &__chart {
+    margin-left: 80px
+  }
+
+  // STYLING FOR THE COMPONENT LABELS //
+
+  &__component_container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__component_info_container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__component_info_number {
+    font-weight: normal;
+  }
+
+  &__score_percent {
+    letter-spacing: .5px;
+    font-size: 9px;
+    text-transform: none;
+    font-weight: 500;
+    margin-left: 1px;
+    color: #383838;
+  }
+
+  &__number {
+    font-weight: bold;
+  }
+
+  &__location_score_text {
+    font-size: 12px;
+  }
+
+  &__component {
+    width: 142px;
+    height: 24px;
+    letter-spacing: .5px;
+    position: absolute;
+    font-size: 10px;
+    font-weight: bold;
+    color: #4a4a4a;
+    text-transform: uppercase;
+    line-height: 12px;
+  }
+
+  &__economc {
+    top: -17px;
+    left: 164px;
+  }
+
+  &__vitalty {
+    top: 24px;
+    left: 215px;
+  }
+
+  &__amenity {
+    left: 220px;
+    top: 115px;
+  }
+
+  &__trnsprt {
+    left: 7px;
+    top: 135px;
+  }
+
+  &__safety {
+    top: 50px;
+    left: 8px;
+  }
+
+  &__sptl_dm {
+    top: -5px;
+    left: 25px;
+  }
+
+  // STYLING FOR DOTS BELOW DONUT //
+
+  &__dots {
+    width: max-content;
+    margin: 0 auto;
+  }
+
+  &__dot {
+    transition: opacity 0.25s ease-in;
+    background: #ddd;
+    border-radius: 50%;
+    width: 9px;
+    height: 9px;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 6px;
+    border-color:#ddd;
+    border-width: .5px;
+    border-style: solid;
+  }
+
+  &__dot.selected {
+    background: $white;
+    border-color:rgba(0, 0, 0, 0.5);
+  }
+
+}

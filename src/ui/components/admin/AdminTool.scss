@@ -1,0 +1,34 @@
+.AdminTool {
+  align-items: center;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.2);
+  color: #343441;
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  margin-right: 20px;
+  text-decoration: none;
+  width: 220px;
+
+  &__icon {
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 50px;
+    margin-bottom: 14px;
+    margin-top: 55px;
+    width: 80px;
+
+    &--users {
+      background-image: url(../images/icon-manageUsers.svg);
+    }
+
+    &--adapters {
+      background-image: url(../images/icon-viewInterchangeAdapters.svg);
+      width: 115px;
+    }
+  }
+
+  &__label {
+    @include brand-text;
+    font-weight: $font-weight-regular;
+  }
+}

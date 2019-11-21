@@ -1,0 +1,53 @@
+@mixin grid-template($height) {
+  -ms-grid-columns: 1fr 1fr 0.5fr 0.5fr;
+  -ms-grid-rows:#{$height};
+  grid-template: #{$height} / 1fr 1fr 0.5fr 0.5fr;
+}
+
+@mixin superadmin-grid-template($height) {
+  -ms-grid-columns: 1fr 1fr 1fr 0.5fr 0.5fr;
+  -ms-grid-rows:#{$height};
+  grid-template: #{$height} / 1fr 1fr 1fr 0.5fr 0.5fr;
+}
+
+.UsersTable {
+  &__header {
+    @include grid-template(20px);
+    display: -ms-grid;
+    display: grid;
+  }
+
+  &__header-superadmin, &__filter-superadmin {
+    @include superadmin-grid-template(20px);
+    display: -ms-grid;
+    display: grid;
+  }
+
+  &__filter-superadmin {
+    margin-bottom: 10px;
+    .center {
+      text-align: center;
+    }
+    select {
+      border: none;
+      box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  &__columnName {
+    @include small-caption-text;
+    color: $gray-91;
+    padding-left: 10px;
+    padding-right: 10px;
+    &-center {
+      @include small-caption-text;
+      color: $gray-91;
+      text-align: center;
+    }
+  }
+
+  &__rows {
+    border-top: 1px solid $gray-f0;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+  }
+}

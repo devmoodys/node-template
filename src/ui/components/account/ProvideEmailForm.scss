@@ -1,0 +1,128 @@
+.ProvideEmailForm {
+  user-select: none;
+  position: absolute;
+  top: 290px;
+  left: 35%;
+  width: 300px;
+  background: #cce6f9;
+  box-shadow: 1px 1px 2px 2px rgba(169, 169, 169, 0.5);
+  border-radius: 5px;
+  display: table;
+  margin: 0 auto;
+}
+
+.ProvideEmailForm__content {
+  position: relative;
+  padding: 0 24px 15px;
+}
+
+.ProvideEmailForm__close-button {
+  display: inline-block;
+  position: absolute;
+  right: 11px;
+  top: -16px;
+  cursor: pointer;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  font-size: 27px;
+  color: #636262;
+}
+
+.ProvideEmailForm__close-button-login {
+  top: 4px;
+}
+
+.ProvideEmailForm__title {
+  margin-top: 24px;
+  font-size: 22px;
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+
+.ProvideEmailForm__description {
+  font-size: 14px;
+  margin-bottom: 10px;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.ProvideEmailForm__fields li {
+  margin-bottom: 18px;
+}
+
+.ProvideEmailForm__fields > li > label {
+  flex: 0 90px;
+  max-width: 220px;
+}
+
+.ProvideEmailForm__email-input {
+  @include large-body-text;
+  font-size: 14px;
+  background-color: white;
+  border: 1px solid #7b7b84;
+  border-radius: 4px;
+  color: $gray-34;
+  flex: 1 0 auto;
+  height: 28px;
+  margin: 10px 0;
+  padding: 4px 10px;
+  width: 180px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+.ProvideEmailForm__email-input::placeholder {
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+.ProvideEmailForm__submit {
+  @include caption-text;
+  background-color: $moody-blue;
+  border: 0;
+  border-radius: 3px;
+  width: 60px;
+  text-align: center;
+  color: $white;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  margin-right: 26px;
+  padding: 8px 10px;
+  text-transform: uppercase;
+}
+
+
+/* MOBILE */
+
+@media only screen and (max-width : 768px) {
+  .ProvideEmailForm {
+    left: 200px;
+  }
+}
+
+@media only screen and (max-width : 540px) {
+  .ProvideEmailForm {
+    left: 100px;
+  }
+}
+
+/* TABLET */
+
+@media only screen and (min-width : 768px) {
+  .ProvideEmailForm {
+    left: 35%;
+  }
+}
+
+/* DESKTOP */
+
+@media only screen and (min-width : 1024px) {
+  .ProvideEmailForm {
+    left: 400px;
+  }
+}
+
+@media only screen and (min-width : 1200px) {
+  .ProvideEmailForm {
+    left: 450px;
+  }
+}

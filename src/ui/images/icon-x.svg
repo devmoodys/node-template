@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Components" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Searchbar-States" transform="translate(-1037.000000, -855.000000)" fill="#343441" fill-rule="nonzero">
+            <g id="Widget-Search" transform="translate(91.000000, 833.000000)">
+                <g id="Search-Copy">
+                    <polygon id="Shape" points="960 23.41 958.59 22 953 27.59 947.41 22 946 23.41 951.59 29 946 34.59 947.41 36 953 30.41 958.59 36 960 34.59 954.41 29"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

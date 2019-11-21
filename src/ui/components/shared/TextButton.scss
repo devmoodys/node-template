@@ -1,0 +1,14 @@
+.TextButton {
+  @include body-text;
+  color: $action-blue;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover {
+    color: $action-blue-dark;
+  }
+
+  &--small {
+    @include small-body-text;
+  }
+}

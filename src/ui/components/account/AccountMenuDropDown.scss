@@ -1,0 +1,28 @@
+.AccountMenuDropDown {
+  @include body-text;
+  @include shadow-heavy;
+  background-color: $white;
+  position: absolute;
+  right: 67px;
+  top: 42px;
+  z-index: 999;
+
+  &__item {
+    color: $gray-34;
+    cursor: pointer;
+    display: block;
+    padding: 12px;
+    text-align: right;
+    text-decoration: none;
+
+    &:visited,
+    &:hover,
+    &:active {
+      color: $gray-34;
+    }
+  }
+
+  &__hr {
+    margin: 0 12px;
+  }
+}

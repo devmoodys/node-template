@@ -1,0 +1,14 @@
+@mixin point {
+  background: $gray-f9;
+  border-bottom: 0;
+  border-left: 0;
+  bottom: 13px;
+  content: "";
+  display: block;
+  height: 12px;
+  left: 100%;
+  margin-left: -6px;
+  position: absolute;
+  transform: rotate(45deg);
+  width: 12px;
+}

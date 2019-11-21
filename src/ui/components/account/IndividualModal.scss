@@ -1,0 +1,15 @@
+.IndividualModal {
+  position: absolute;
+  background-color: aliceblue;
+  bottom: 35%;
+  left: 40%;
+  padding: 25px;
+  width: 300px;
+  border-radius: 15px;
+  border: 1px solid #34495e;
+  z-index: 1000;
+
+  h2 {
+    font-size: 30px;
+  }
+}

@@ -1,0 +1,55 @@
+.MainLoginPageInfoFooter {
+  background: #2d343c;
+  color: $white;
+  &__section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 24px;
+    &__container {
+      display: inline;
+      margin: 0 24px 0 24px;
+      vertical-align: middle;
+    }
+    p {
+      color: #ccc;
+      font-size: 13px;
+      line-height: 22px;
+      margin-block-end: 1em;
+      margin-block-start: 1em;
+      width: 200px;
+    }
+    p.header {
+      color: $white;
+      font-size: 13px;
+      font-weight: 500;
+      margin: 0;
+    }
+    ul {
+      list-style: none;
+      margin-block-end: 1em;
+      margin-block-start: 1em;
+      padding: 0;
+    }
+    li {
+      color: #ccc;
+      display: list-item;
+      font-size: 13px;
+      line-height: 22px;
+      text-align: -webkit-match-parent;
+    }
+    a {
+      color: $white;
+      text-decoration: none;
+    }
+  }
+  &__copywright {
+    border-color: #0c0e10;
+    border-style: solid;
+    border-width: 1px 0 0 0;
+    font-size: 12px;
+    padding: 10px;
+    text-align: center;
+  }
+}

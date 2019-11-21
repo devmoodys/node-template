@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="9px" height="9px" viewBox="0 0 9 9" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 3</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Widget" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Widget---CLS---Search-Results---Preview---Filter" transform="translate(-1180.000000, -637.000000)" fill="#1565C0">
+            <g id="VAL-Flyout" transform="translate(905.000000, 113.000000)">
+                <g id="Preview-Panel">
+                    <g id="Preview-Content" transform="translate(26.000000, 157.000000)">
+                        <g id="Group" transform="translate(173.000000, 366.000000)">
+                            <g id="Show-More" transform="translate(76.000000, 1.000000)">
+                                <g id="Group-3">
+                                    <polygon id="Path" points="8.159076 4.692582 7.707663 4.165245 4.467663 0.385245 3.24 1.4399325 6.02856 4.6926225 3.24 7.9453125 4.467663 9 7.707663 5.22"></polygon>
+                                    <polygon id="Path" points="4.919076 4.692582 4.467663 4.165245 1.227663 0.385245 0 1.4399325 2.78856 4.6926225 0 7.9453125 1.227663 9 4.467663 5.22"></polygon>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

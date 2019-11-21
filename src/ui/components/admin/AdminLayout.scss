@@ -1,0 +1,12 @@
+.AdminLayout {
+  &__body {
+    padding-bottom: 46px;
+    padding-left: 230px;
+    padding-right: 230px;
+    padding-top: 46px;
+  }
+
+  &__title {
+    @include headline-text;
+  }
+}

@@ -1,0 +1,37 @@
+.ThreeBounceSpinner {
+  text-align: center;
+  width: 70px;
+}
+
+.ThreeBounceSpinner > div {
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
+  background-color: $gray-34;
+  border-radius: 100%;
+  display: inline-block;
+  height: 18px;
+  width: 18px;
+}
+
+.ThreeBounceSpinner--small > div {
+  height: 12px;
+  width: 12px;
+}
+
+.ThreeBounceSpinner .ThreeBounceSpinner__bounce1 {
+  animation-delay: -0.32s;
+}
+
+.ThreeBounceSpinner .ThreeBounceSpinner__bounce2 {
+  animation-delay: -0.16s;
+}
+
+@keyframes sk-bouncedelay {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}

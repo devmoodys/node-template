@@ -1,0 +1,46 @@
+.VideoDemo {
+  background: #2980B9;
+  padding: 40px 0 50px 0;
+
+  h3 {
+    color: white;
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  video {
+    width: 100%;
+    position: relative;
+    top: 20%;
+  }
+
+  &__content {
+    display: flex;
+    justify-content: center;
+    
+    h4, p {
+      color: white;
+    }
+
+    &__text, &__video {
+      width: 35%;
+    }
+
+    &__text {
+      margin-right: 100px;
+    }
+    
+    h4 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 20px;
+      font-weight: 300;
+      line-height: 1.3em;
+      margin-bottom: 35px;
+    }
+  }
+}

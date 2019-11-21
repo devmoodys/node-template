@@ -1,0 +1,75 @@
+.CLSBadge {
+  &__container {
+    position: relative;
+    font-family: "Roboto-Condensed", sans-serif;
+    margin: 10px;
+    float: left;
+  }
+
+  &__top_section {
+    position: relative;
+  }
+
+  &__hexagon_patterned {
+    height: 130;
+    height: 130px;
+    width: 130px;
+  }
+
+  &__hexagon {
+    height: 110px;
+    width: 110px;
+    margin-left: 10px;
+    margin-top: 10px;
+    position: absolute;
+    left: 0px;
+  }
+
+  &__score {
+    font-family: "Roboto-Condensed", sans-serif;
+    color: white;
+    position: absolute;
+    font-weight: 700;
+    z-index: 2;
+    font-size: 34px;
+    top: 40px;
+    left: 33px;
+    letter-spacing: 0.05em;
+  }
+
+  &__score_type_override {
+    font-family: "Roboto-Condensed", sans-serif;
+    color: white;
+    position: absolute;
+    font-weight: 700;
+    z-index: 2;
+    font-size: 34px;
+    top: 52px;
+    left: 33px;
+    letter-spacing: 0.05em;
+  }
+
+  &__type_container {
+    font-family: "Roboto-Condensed", sans-serif;
+    color: white;
+    position: absolute;
+    font-weight: 700;
+    z-index: 2;
+    font-size: 14px;
+    left: 17px;
+    top: 79px;
+    width: 95px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  &__type_container_long {
+    font-size: 12px;
+  }
+
+  &__type {
+    display: inline-block;
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,13 @@
+.Alert {
+  display: inline;
+  color: red;
+  
+  &__portfolio-home {
+    height: 17px;
+  }
+
+  sup {
+    vertical-align: super;
+    font-size: 10px;
+  }
+}

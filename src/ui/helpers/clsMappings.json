@@ -1,0 +1,223 @@
+{
+  "typeToApiTypeTranslation": {
+    "hotel": "cre_ho",
+    "industrial": "cre_in",
+    "multi-family": "cre_mf",
+    "office": "cre_of",
+    "retail": "cre_rt"
+  },
+  "typeToApiPercentileTranslation": {
+    "hotel": "cre_ho_percentile",
+    "industrial": "cre_in_percentile",
+    "multi-family": "cre_mf_percentile",
+    "office": "cre_of_percentile",
+    "retail": "cre_rt_percentile"
+  },
+  "propertyTypeAbbreviationToTypeTranslation": {
+    "rt": "retail",
+    "ho": "hotel",
+    "lo": "hotel",
+    "in": "industrial",
+    "mf": "multi-family",
+    "of": "office"
+  },
+  "locationScoreTypes": {
+    "retail": "location_score_retail",
+    "hotel": "location_score_hotel",
+    "industrial": "location_score_industrial",
+    "multi-family": "location_score_multifamily",
+    "office": "location_score_office"
+  },
+  "componentTranslations": {
+    "economc": "economicProsperity",
+    "vitalty": "businessVitality",
+    "amenity": "amenity",
+    "trnsprt": "transportation",
+    "safety": "safety",
+    "sptl_dm": "spatial_demand"
+  },
+  "componentDisplayNames": {
+    "economc": "Economic Prosperity",
+    "vitalty": "Business Vitality",
+    "amenity": "Amenities",
+    "trnsprt": "Transportation",
+    "safety": "Safety",
+    "sptl_dm": "Spatial Demand"
+  },
+  "typeOrder": [
+    "economc",
+    "vitalty",
+    "amenity",
+    "trnsprt",
+    "safety",
+    "sptl_dm"
+  ],
+  "colors": [
+    "#2f9260",
+    "#86387d",
+    "#f4672f",
+    "#b41112",
+    "#d3d656",
+    "#b27a44"
+  ],
+  "colorTranslations": {
+    "economc": "#2f9260",
+    "vitalty": "#86387d",
+    "amenity": "#f4672f",
+    "trnsprt": "#b41112",
+    "safety": "#d3d656",
+    "sptl_dm": "#b27a44"
+  },
+  "weights": [
+    {
+      "prp_type": "of",
+      "component_type": "economc",
+      "weight": 0.135
+    },
+    {
+      "prp_type": "of",
+      "component_type": "vitalty",
+      "weight": 0.135
+    },
+    {
+      "prp_type": "of",
+      "component_type": "amenity",
+      "weight": 0.315
+    },
+    {
+      "prp_type": "of",
+      "component_type": "trnsprt",
+      "weight": 0.18
+    },
+    {
+      "prp_type": "of",
+      "component_type": "safety",
+      "weight": 0.135
+    },
+    {
+      "prp_type": "of",
+      "component_type": "sptl_dm",
+      "weight": 0.1
+    },
+    {
+      "prp_type": "mf",
+      "component_type": "economc",
+      "weight": 0.225
+    },
+    {
+      "prp_type": "mf",
+      "component_type": "vitalty",
+      "weight": 0.045
+    },
+    {
+      "prp_type": "mf",
+      "component_type": "amenity",
+      "weight": 0.315
+    },
+    {
+      "prp_type": "mf",
+      "component_type": "trnsprt",
+      "weight": 0.09
+    },
+    {
+      "prp_type": "mf",
+      "component_type": "safety",
+      "weight": 0.225
+    },
+    {
+      "prp_type": "mf",
+      "component_type": "sptl_dm",
+      "weight": 0.1
+    },
+    {
+      "prp_type": "in",
+      "component_type": "economc",
+      "weight": 0.135
+    },
+    {
+      "prp_type": "in",
+      "component_type": "vitalty",
+      "weight": 0.18
+    },
+    {
+      "prp_type": "in",
+      "component_type": "amenity",
+      "weight": 0.18
+    },
+    {
+      "prp_type": "in",
+      "component_type": "trnsprt",
+      "weight": 0.27
+    },
+    {
+      "prp_type": "in",
+      "component_type": "safety",
+      "weight": 0.135
+    },
+    {
+      "prp_type": "in",
+      "component_type": "sptl_dm",
+      "weight": 0.1
+    },
+    {
+      "prp_type": "rt",
+      "component_type": "economc",
+      "weight": 0.225
+    },
+    {
+      "prp_type": "rt",
+      "component_type": "vitalty",
+      "weight": 0.09
+    },
+    {
+      "prp_type": "rt",
+      "component_type": "amenity",
+      "weight": 0.225
+    },
+    {
+      "prp_type": "rt",
+      "component_type": "trnsprt",
+      "weight": 0.27
+    },
+    {
+      "prp_type": "rt",
+      "component_type": "safety",
+      "weight": 0.09
+    },
+    {
+      "prp_type": "rt",
+      "component_type": "sptl_dm",
+      "weight": 0.1
+    },
+    {
+      "prp_type": "ho",
+      "component_type": "economc",
+      "weight": 0.09
+    },
+    {
+      "prp_type": "ho",
+      "component_type": "vitalty",
+      "weight": 0.09
+    },
+    {
+      "prp_type": "ho",
+      "component_type": "amenity",
+      "weight": 0.225
+    },
+    {
+      "prp_type": "ho",
+      "component_type": "trnsprt",
+      "weight": 0.27
+    },
+    {
+      "prp_type": "ho",
+      "component_type": "safety",
+      "weight": 0.225
+    },
+    {
+      "prp_type": "ho",
+      "component_type": "sptl_dm",
+      "weight": 0.1
+    }
+  ]
+}

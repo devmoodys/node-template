@@ -1,0 +1,20 @@
+.Breadcrumbs {
+  display: flex;
+  height: 13px;
+  margin-bottom: 6px;
+
+  &__breadcrumb {
+    @include body-text;
+    color: $action-blue;
+    margin-right: 5px;
+    text-decoration: none;
+  }
+
+  &__breadcrumb-with-separator {
+    display: flex;
+  }
+
+  &__separator {
+    margin-right: 5px;
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "database": {
+    "connection": {
+      "database": "metropolis_test"
+    }
+  }
+}

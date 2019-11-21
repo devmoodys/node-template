@@ -1,0 +1,61 @@
+@mixin grid-template($height) {
+  -ms-grid-columns: 1fr 1fr 0.5fr 0.5fr;
+  -ms-grid-rows: #{$height};
+  grid-template: #{$height} / 1fr 1fr 0.5fr 0.5fr
+}
+
+@mixin superadmin-grid-template($height) {
+  -ms-grid-columns: 1fr 1fr 1fr 0.5fr 0.5fr;
+  -ms-grid-rows: #{$height};
+  grid-template: #{$height} / 1fr 1fr 1fr 0.5fr 0.5fr;
+}
+
+.NoUsersRow {
+  background-color: $white;
+  border-bottom: 1px solid $gray-f0;
+  border-left: 1px solid $gray-f0;
+  border-right: 1px solid $gray-f0;
+  padding: 25px;
+  text-align: center
+}
+
+.UserRow {
+  @include grid-template(50px);
+  background-color: $white;
+  border-bottom: 1px solid $gray-f0;
+  border-left: 1px solid $gray-f0;
+  border-right: 1px solid $gray-f0;
+  cursor: pointer;
+  display: -ms-grid;
+  display: grid;
+
+  &-superadmin {
+    @include superadmin-grid-template(50px);
+    display: -ms-grid;
+    display: grid;
+  }
+
+  &__details {
+    @include ms-align-self-center;
+    align-self: center;
+    background-color: $white;
+    color: black;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  &:hover {
+    background-color: $highlight-blue;
+    .UserRow__details {
+      background-color: $highlight-blue;
+    }
+  }
+}
+
+.inactive {
+  color: lightgrey;
+}
+
+.fill-width {
+  width: 39px;
+}

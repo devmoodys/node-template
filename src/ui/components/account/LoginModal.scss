@@ -1,0 +1,20 @@
+.LoginModal {
+  position: absolute;
+  bottom: 35%;
+  background-color: aliceblue;
+  left: 40%;
+  padding: 25px;
+  border-radius: 15px;
+  border: 1px solid #34495e;
+  z-index: 1000;
+
+  h2 {
+    font-size: 30px;
+    margin-bottom: 15px;
+  }
+
+  input {
+    display: block;
+    margin-bottom: 10px;
+  }
+}

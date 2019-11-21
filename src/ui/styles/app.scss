@@ -1,0 +1,69 @@
+@import "./globals/*.scss";
+@import "./common/*.scss";
+@import "../components/**/*.scss";
+@import "../widget/components/**/*.scss";
+@import "./slick-theme.scss";
+@import "./slick.scss";
+
+body {
+  @include body-text;
+  color: $gray-34;
+}
+
+h1 {
+  @include headline-text;
+}
+
+em {
+  font-weight: 500;
+}
+
+.WidgetContainer {
+  .results-interaction-container {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100vh;
+    overflow: scroll;
+    .search-form {
+      flex: 100%;
+    }
+  }
+
+  .OptionsFooter {
+    background: white;
+    border-top: 1px solid #f0f0f0;
+    bottom: 0;
+    height: 55px;
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+  }
+}
+
+.widget-el {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 47px;
+
+  &__show {
+    display: block;
+  }
+
+  &__hide {
+    display: none;
+  }
+}
+
+.widget_headline {
+  display: none;
+}
+
+.center-by-margin {
+  margin: 0 auto;
+}
+
+.text-center {
+  text-align: center;
+}

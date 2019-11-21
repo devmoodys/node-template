@@ -1,0 +1,26 @@
+.AdapterDetailMapping {
+  margin-top: 30px;
+  &__grid-header {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 285px 345px 350px;
+    -ms-grid-rows: 20px;
+    grid-template: 20px / 285px 345px 350px;
+    margin-left: 30px;
+    margin-right: 50px;
+    &__column {
+      @include small-caption-text;
+      color: $gray-91;
+      padding-right: 10px;
+    }
+  }
+}
+
+.AdapterDetailHeader {
+  background: #f0f0f0;
+  font-size: 13px;
+  height: 32px;
+  padding-left: 30px;
+  padding-top: 18px;
+  text-transform: capitalize;
+}

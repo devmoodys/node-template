@@ -1,0 +1,58 @@
+@mixin grid-template($height) {
+  -ms-grid-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  -ms-grid-rows: #{$height};
+  grid-template: #{$height} / 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.CompanyRow {
+  @include grid-template(50px);
+  background-color: $white;
+  border-bottom: 1px solid $gray-f0;
+  border-left: 1px solid $gray-f0;
+  border-right: 1px solid $gray-f0;
+  cursor: pointer;
+  display: -ms-grid;
+  display: grid;
+
+  &__details {
+    @include ms-align-self-center;
+    align-self: center;
+    background-color: $white;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  &__edit {
+    display: flex;
+    flex-direction: row;
+    button.edit__submit {
+      background-color: $green-light;
+      margin-right: 5px;
+    }
+    button.edit__cancel {
+      background-color: #919598;
+      margin-right: 5px;
+    }
+  }
+
+  button.toggle_edit {
+    background-color: #009775;
+  }
+
+  input.edit__active__users {
+    border: 1px solid rgb(238, 238, 238);
+    text-align: center;
+    width: 40px;
+  }
+
+  &:hover {
+    background-color: $highlight-blue;
+    .CompanyRow__details {
+      background-color: $highlight-blue;
+    }
+  }
+}
+
+.reached-max-users {
+  color: red;
+}

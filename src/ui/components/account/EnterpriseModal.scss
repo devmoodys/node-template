@@ -1,0 +1,19 @@
+.EnterpriseModal {
+  background: aliceblue;
+  position: absolute;
+  bottom: 35%;
+  left: 40%;
+  padding: 25px 25px 0px 25px;
+  width: 300px;
+  border-radius: 15px;
+  border: 1px solid #34495e;
+  z-index: 1000;
+
+  h2 {
+    font-size: 25px;
+  }
+
+  &__iframe {
+    height: 190px;
+  }
+}

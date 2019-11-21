@@ -1,0 +1,19 @@
+.LoginHeader {
+  &__loginButton, &__enterpriseButton, &__individualButton {
+    font-size: 15px !important;
+    border-radius: 5px !important;
+  }
+  &__loginButton {
+    margin-right: 15px;
+    background-color: white !important;
+    color: #559dfa !important
+  }
+  &__enterpriseButton {
+    margin-right: 15px;
+  }
+
+  &__individualButton, &__enterpriseButton {
+    background-color: #0d47a1 !important;
+    color: white !important;
+  }
+}

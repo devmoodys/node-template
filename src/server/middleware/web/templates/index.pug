@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  #root!= html
+  script window.__DATA = !{storeState};
+  link(rel="stylesheet" href="/public/compstak/CompStak.css")
+  if !{displayMap} == true
+    script(src="/public/compstak/CompStak.js")

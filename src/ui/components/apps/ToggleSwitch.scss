@@ -1,0 +1,35 @@
+.ToggleSwitch {
+  border-radius: 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+  height: 20px;
+  position: relative;
+  width: 39px;
+
+  &__knob {
+    background-color: $gray-f0;
+    border-radius: 50%;
+    box-sizing: border-box;
+    height: 12px;
+    position: absolute;
+    top: 4px;
+    transition: all 0.25s ease-in-out;
+    width: 12px;
+  }
+}
+
+.ToggleSwitch--off {
+  background-color: $gray-c8;
+
+  .ToggleSwitch__knob {
+    transform: translateX(4px);
+  }
+}
+
+.ToggleSwitch--on {
+  background-color: $green-light;
+
+  .ToggleSwitch__knob {
+    transform: translateX(22px);
+  }
+}

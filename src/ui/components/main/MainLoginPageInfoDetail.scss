@@ -1,0 +1,115 @@
+.MainLoginPageInfoDetail {
+  background: white;
+  width: 100%;
+  box-shadow: 14px 0px 0px grey;
+
+  &__howDoesItWork {
+    h3 {
+      padding: 40px 60px;
+      font-size: 28px;
+    }
+    p { 
+      font-size: 20px;
+      line-height: 1.3em;
+      font-weight: 300;
+      margin: 0 auto;
+      width: 75%;
+      padding-bottom: 40px;
+    }
+    color: white;
+    background: #2980B9;
+    text-align: center;
+  }
+
+  &__subheader {
+    font-size: 24px;
+    // color: #559dfa;
+    color: black;
+    width: 95%;
+    margin: 55px auto 65px;
+    text-align: center;
+  }
+
+  &__features {
+    padding: 45px 4% 45px 4%;
+    text-align: center;
+  }
+
+  &__features-column {
+    width: 90%;
+    margin: 0 2%;
+  }
+
+  &__features-image {
+    margin-bottom: 5px;
+    height: 50px;
+  }
+
+  &__features-title {
+    font-size: 20px;
+    margin: 10px 0;
+    font-weight: 600;
+  }
+
+  &__features-description {
+    font-weight: 300;
+    font-size: 20px;
+    width: 90%;
+    line-height: 1.3em;
+    margin: 0 auto;
+  }
+}
+
+/* MOBILE */
+
+@media only screen and (max-width : 768px) {
+  .MainLoginPageInfoDetail {
+    padding-top: 25px;
+    &__subheader {
+      font-size: 23px;
+      margin: 30px auto 45px ;
+    }
+    &__features {
+      padding: 0;
+      display: block;
+    }
+    &__features-title {
+      font-size: 20px;
+    }
+    &__features-column {
+      width: 90%;
+      margin: 20px 2%;
+    }
+    &__features-description {
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+  }
+}
+
+/* TABLET/DESKTOP */
+
+@media only screen and (min-width : 768px) {
+  .MainLoginPageInfoDetail {
+    &__features {
+      display: flex;
+      flex-direction: row;
+    }
+    &__features-image {
+      height: 65px;
+    }
+    &__subheader {
+      font-size: 25px;
+      margin: 40px auto 60px;
+    }
+  }
+
+}
+
+@media only screen and (min-width : 1024px) {
+  .MainLoginPageInfoDetail {
+   &__subheader {
+      font-size: 28px;
+    }
+  }
+}

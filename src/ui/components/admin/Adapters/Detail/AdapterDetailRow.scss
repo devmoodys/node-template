@@ -1,0 +1,48 @@
+@mixin margin-and-padding {
+  color: black;
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+
+.AdapterDetailRow {
+  background-color: $white;
+  border-bottom: 1px solid $gray-f0;
+  border-right: 1px solid $gray-f0;
+  cursor: pointer;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 6px 250px 60px 350px 1fr;
+  -ms-grid-rows: auto;
+  grid-template: auto / 6px 250px 60px 350px 1fr;
+  &--from {
+    @include margin-and-padding();
+    margin-left: 26px;
+  }
+  &--to {
+    &--path,
+    &--func,
+    &--value {
+      @include margin-and-padding();
+    }
+    &--func,
+    &--value {
+      font-weight: bold;
+    }
+  }
+  &--desc {
+    @include margin-and-padding();
+    padding-right: 5px;
+  }
+  &--func {
+    background-image: url(../images/icon-func.svg);
+    background-origin: content-box;
+    background-position: top;
+    background-repeat: no-repeat;
+    padding-top: 10px;
+  }
+  &--value {
+    background-image: url(../images/icon-value.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}

@@ -1,0 +1,46 @@
+.Flash {
+  @include body-text;
+  background-color: $blue-dark;
+  color: $white;
+  left: 0;
+  line-height: 1.2;
+  min-height: 46px;
+  opacity: 0.9;
+  padding: 12px 12px 22px 12px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 200;
+}
+
+.Flash__close-flash-button-container {
+  text-align: right;
+}
+
+.Flash__close-flash-button {
+  cursor: pointer;
+  margin-left: 10px;
+
+  img {
+    vertical-align: middle;
+  }
+}
+
+.Flash--error {
+  background-color: $red;
+  opacity: 0.9;
+}
+
+.Flash--success {
+  background-color: $green;
+  opacity: 0.9;
+
+  a {
+    color: $white;
+  }
+}
+
+.Flash__message {
+  margin-left: 10px;
+  overflow-x: auto;
+}
