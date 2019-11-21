@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-// import SearchWidget from "ui/components/widgets/SearchWidget";
+import SearchWidget from "ui/components/widgets/SearchWidget";
 import AccountMenu from "ui/components/account/AccountMenu";
 import NavLink from "ui/components/shared/NavLink";
 
@@ -17,7 +17,7 @@ class MainHeader extends Component {
           />
         </NavLink>
 
-        {/* <SearchWidget /> */}
+        <SearchWidget />
         <div className="MainHeader__right-nav">
           {authenticated && <AccountMenu className="MainHeader__menu" />}
         </div>
