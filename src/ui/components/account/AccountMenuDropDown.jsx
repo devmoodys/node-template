@@ -4,6 +4,7 @@ import enhanceWithClickOutside from "react-click-outside";
 import { connect } from "react-redux";
 
 import { hideDropDown } from "ui/store/actions/accountMenu";
+import { hasAdminAccess } from "helpers/authorization";
 
 export class AccountMenuDropDown extends React.Component {
   handleClickOutside(event) {
@@ -15,9 +16,17 @@ export class AccountMenuDropDown extends React.Component {
   }
 
   render() {
+    const { role } = this.props;
     return (
       <div className="AccountMenuDropDown">
         <ul>
+          {hasAdminAccess(role) && (
+            <li>
+              <a href="/admin" className="AccountMenuDropDown__item">
+                Settings
+              </a>
+            </li>
+          )}
           <li>
             <a href="/logout" className="AccountMenuDropDown__item">
               Logout
@@ -32,8 +41,15 @@ export class AccountMenuDropDown extends React.Component {
 AccountMenuDropDown.propTypes = {
   handleClose: PropTypes.func.isRequired,
   handleLogout: PropTypes.func.isRequired,
-  toggleClassName: PropTypes.string
+  toggleClassName: PropTypes.string,
+  role: PropTypes.string
 };
+
+function mapStateToProps({ currentUser }) {
+  return {
+    role: currentUser.role
+  };
+}
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -46,4 +62,6 @@ function mapDispatchToProps(dispatch) {
 const EnhancedAccountMenuDropDown = enhanceWithClickOutside(
   AccountMenuDropDown
 );
-export default connect(null, mapDispatchToProps)(EnhancedAccountMenuDropDown);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  EnhancedAccountMenuDropDown
+);
