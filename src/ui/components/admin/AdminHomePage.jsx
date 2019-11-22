@@ -24,11 +24,6 @@ class AdminHomePage extends Component {
               to="/admin/companies"
             />
           )}
-          <AdminTool
-            label="View Interchange Adapters"
-            className="adapters"
-            to="/admin/adapters"
-          />
         </div>
       </AdminLayout>
     );
