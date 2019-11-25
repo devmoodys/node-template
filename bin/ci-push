@@ -1,0 +1,14 @@
+
+set -euo pipefail
+# Log into ECR
+ECR_DOCKER_PASSWORD=`aws ecr get-login --no-include-email --region us-west-2 | awk '{print $6}'`
+ECR_DOCKER_URL=https://`echo $ECR_URI | sed 's/\/.*//'`
+echo $ECR_DOCKER_PASSWORD | docker login -u AWS --password-stdin $ECR_DOCKER_URL
+
+set -x
+
+# Tag and push docker image to Amazon ECR
+docker tag metropolis_app $ECR_URI:$CIRCLE_SHA1
+docker tag metropolis_app $ECR_URI:$DOCKER_TAG
+docker push $ECR_URI:$CIRCLE_SHA1
+docker push $ECR_URI:$DOCKER_TAG

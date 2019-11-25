@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -euxo pipefail
+
+PROJECT_DIR=$(dirname $0)/..
+CACHE_DIR=$PROJECT_DIR/.docker-cache
+
+# Load previously cached image if available
+if [ -f $CACHE_DIR/metropolis_app.tar ]; then
+  docker load < $CACHE_DIR/metropolis_app.tar
+fi
+
+docker build --build-arg METROPOLIS_URL=${METROPOLIS_URL} --build-arg CLS_URL=${CLS_URL} --build-arg CORS_ALLOWED_ORIGINS=${CORS_ALLOWED_ORIGINS} --build-arg AWS_REGION=${AWS_REGION} --cache-from metropolis_app -f $PROJECT_DIR/Dockerfile -t metropolis_app $PROJECT_DIR
+
+# Store a copy of the built image that can be cached for future CI builds
+mkdir -p $CACHE_DIR
+docker save -o $CACHE_DIR/metropolis_app.tar metropolis_app

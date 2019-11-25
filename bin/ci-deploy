@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -euo pipefail
+
+TASK_DEFINITION=new-task-definition.json
+
+# Obtain config from S3
+ENVIRONMENT_JSON=$(aws s3 cp s3://${SECRETS_BUCKET_NAME}/environment.json - | tr '\n' ' ')
+
+# Create a new task definition for this build
+cat $(dirname $0)/../.ecs/${TASK_DEFINITION_TEMPLATE} \
+  | sed -e "s;%SHA%;${CIRCLE_SHA1};g" \
+  | sed -e "s;%ECR_URI%;${ECR_URI};g" \
+  | sed -e "s;%ENVIRONMENT_JSON%;${ENVIRONMENT_JSON};g" \
+  > $TASK_DEFINITION
+
+set -x
+
+aws ecs register-task-definition --region $AWS_REGION --family ${TASK_FAMILY} --cli-input-json file://$TASK_DEFINITION > /dev/null
+
+# Parse the newly registered task definition to get is auto-assigned revision number
+TASK_REVISION=`aws ecs describe-task-definition --region $AWS_REGION --task-definition ${TASK_FAMILY} | grep revision | awk '{print $2}' | sed 's/,$//'`
+
+# Perform the actual deploy by updating the ECS service to use the new task revision
+aws ecs update-service --region $AWS_REGION --cluster ${CLUSTER_NAME} --service $SERVICE_NAME --task-definition ${TASK_FAMILY}:${TASK_REVISION}
+
+# Remove the temporary json file
+rm -f $TASK_DEFINITION

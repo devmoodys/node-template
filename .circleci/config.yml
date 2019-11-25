@@ -1,0 +1,129 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/metropolis
+    docker:
+      - image: circleci/node:8.11.1
+        environment:
+          DATABASE_URL: "postgres://metropolis_user@localhost:5432/metropolis_test"
+          TEST_DATABASE_URL: "postgres://metropolis_user@localhost:5432/metropolis_test"
+          REDIS_URL: "redis://localhost:6379"
+          ELASTICSEARCH_URL: "http://localhost:9200"
+          TEST_ELASTICSEARCH_URL: "http://localhost:9200"
+      - image: circleci/postgres:9.5-alpine
+        environment:
+          POSTGRES_USER: metropolis_user
+          POSTGRES_DB: metropolis_test
+          POSTGRES_PASSWORD: ''
+      - image: redis:3.2-alpine
+      - image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.0.1
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ arch }}-{{ checksum "yarn.lock" }}
+            - v1-dependencies-{{ arch }}
+      - run: yarn install
+      - save_cache:
+          key: v1-dependencies-{{ arch }}-{{ checksum "yarn.lock" }}
+          paths:
+            - ./node_modules
+      - run: yarn lint
+      - run: yarn build
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
+          name: Wait for Redis
+          command: dockerize -wait tcp://localhost:6379 -timeout 1m
+      - run:
+          name: jest
+          command: yarn test --ci --testResultsProcessor="jest-junit" --runInBand
+          environment:
+            JEST_JUNIT_OUTPUT: ./tmp/test-results/jest.xml
+      - store_test_results:
+          path: ./tmp/test-results
+  deploy_sandbox:
+    working_directory: ~/metropolis
+    docker:
+      - image: circleci/python:3-jessie
+    steps:
+      - checkout
+      - setup_remote_docker
+      - restore_cache:
+          key: v2-docker-build
+      - run:
+          name: Deploy_Sandbox
+          command: |
+            sudo pip install --progress-bar off "awscli >= 1.11.190"
+            export METROPOLIS_URL="http://metropolis-alb-2117276747.us-west-2.elb.amazonaws.com/"
+            export CLS_URL="http://cls-alb-2019517562.us-west-2.elb.amazonaws.com"
+            export AWS_ACCESS_KEY_ID=${SANDBOX_AWS_ACCESS_KEY_ID}
+            export AWS_SECRET_ACCESS_KEY=${SANDBOX_AWS_SECRET_ACCESS_KEY}
+            export AWS_REGION="us-west-2"
+            export CLUSTER_NAME=carbonfive
+            export SERVICE_NAME=carbonfive-metro
+            export TASK_FAMILY=metropolis
+            export SECRETS_BUCKET_NAME=${SANDBOX_SECRETS_BUCKET_NAME}
+            export TASK_DEFINITION_TEMPLATE=task-definition.json
+            export ECR_URI=${SANDBOX_ECR_URI}
+            export DOCKER_TAG=clssandbox
+            export CORS_ALLOWED_ORIGINS=https://qa.cmm.moodysanalytics.net,https://cmm.moodysanalytics.com,http://metropolis-alb-2117276747.us-west-2.elb.amazonaws.com,https://rcp-qa.analytics.moodys.net,http://localhost:4200,localhost:4200,http://reis-network-page-load-balancer-249267909.us-west-2.elb.amazonaws.com
+            sudo chmod a+x bin/*
+            bin/ci-build
+            bin/ci-push
+            bin/ci-deploy
+      - save_cache:
+          key: v2-docker-build
+          paths:
+            - ./.docker-cache
+  deploy_non_prod:
+    working_directory: ~/metropolis
+    docker:
+      - image: circleci/python:3-jessie
+    steps:
+      - checkout
+      - setup_remote_docker
+      - restore_cache:
+          key: v2-docker-build
+      - run:
+          name: Deploy_Non_Prod
+          command: |
+            sudo pip install --progress-bar off "awscli >= 1.11.190"
+            export METROPOLIS_URL="https://cls.moodysanalytics.com/"
+            export AWS_ACCESS_KEY_ID=${NONPROD_AWS_ACCESS_KEY_ID}
+            export AWS_SECRET_ACCESS_KEY=${NONPROD_AWS_SECRET_ACCESS_KEY}
+            export AWS_REGION="us-west-2"
+            export CLUSTER_NAME=metropolis-nonprod-cluster
+            export SERVICE_NAME=ecs-metropolis-service
+            export TASK_FAMILY=metropolis
+            export SECRETS_BUCKET_NAME=${NONPROD_SECRETS_BUCKET_NAME}
+            export TASK_DEFINITION_TEMPLATE=task-definition-nonprod.json
+            export ECR_URI=${NONPROD_ECR_URI}
+            export DOCKER_TAG=nonprod
+            export CORS_ALLOWED_ORIGINS=https://cls.moodysanalytics.com,https://qa.cmm.moodysanalytics.net,https://cmm.moodysanalytics.com,http://rockport.dev.rokolabs.com,http://moodys.rockport.dev.rokolabs.com,http://moodys.rockport.dev.rokolabs.com,http://rockport.local.rokolabs.com,http://moodys.app-rockport.qa.rokolabs.com,http://moodys.app-stage.rockportval.com,https://moodys-app.rockportval.com,https://rcp-qa.analytics.moodys.net
+            sudo chmod a+x bin/*
+            bin/ci-build
+            bin/ci-push
+            bin/ci-deploy
+      - save_cache:
+          key: v2-docker-build
+          paths:
+            - ./.docker-cache
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build
+      - deploy_sandbox:
+          filters:
+            branches:
+              only: development
+          requires:
+            - build
+      - deploy_non_prod:
+          filters:
+            branches:
+              only: master
+          requires:
+            - build

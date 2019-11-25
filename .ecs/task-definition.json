@@ -1,0 +1,29 @@
+{
+  "family": "metropolis",
+  "containerDefinitions": [
+    {
+      "portMappings": [
+        {
+          "hostPort": 0,
+          "protocol": "tcp",
+          "containerPort": 8080
+        }
+      ],
+      "command": ["yarn start:production"],
+      "logConfiguration": {
+          "logDriver": "awslogs",
+          "options": {
+              "awslogs-group": "metropolis",
+              "awslogs-region": "us-west-2",
+              "awslogs-stream-prefix": "metropolis"
+          }
+      },
+      "cpu": 0,
+      "environment": %ENVIRONMENT_JSON%,
+      "ulimits": [],
+      "memory": 600,
+      "image": "%ECR_URI%:%SHA%",
+      "name": "metropolis"
+    }
+  ]
+}
