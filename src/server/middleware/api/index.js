@@ -5,10 +5,9 @@ import { path } from "ramda";
 
 import wrapAsync from "server/middleware/wrapAsync";
 import jwtVerify from "server/middleware/api/jwtVerify";
-import { getCLSBadgeInternal } from "server/middleware/api/clsBadge";
 
 import { acceptTerms } from "server/middleware/api/acceptTerms";
-import { reverseGeocode, getUserLatLong } from "server/middleware/api/map";
+import { getUserLatLong } from "server/middleware/api/map";
 import { addUserToIndivSubWaitlist } from "server/middleware/api/individualSubscription";
 
 import {
@@ -98,9 +97,7 @@ router.put(
 );
 router.get("/users", authenticate, adminOnly, wrapAsync(users));
 router.post("/accept_terms", authenticate, wrapAsync(acceptTerms));
-router.get("/clsBadge", authenticate, wrapAsync(getCLSBadgeInternal));
 
-router.get("/reverseGeocode/:partner", authenticate, wrapAsync(reverseGeocode));
 router.get("/getUserLatLong", authenticate, wrapAsync(getUserLatLong));
 
 router.post(

@@ -1,0 +1,31 @@
+.SearchWidgetTrigger {
+  color: #2196f3;
+  text-decoration: underline;
+  margin-left: 20px;
+  height: 18px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  cursor: pointer;
+
+  &__placeholder {
+    @include headline-text;
+    color: white;
+    font-size: 18px;
+    font-weight: normal;
+  }
+
+  &__line {
+    width: 110px;
+    margin: 0;
+    color: white;
+  }
+
+  &__spyglass {
+    height: 21px;
+    width: 24px;
+    color: white;
+  }
+
+}

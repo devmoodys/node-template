@@ -1,6 +1,6 @@
 export function initializeSearchWidget(window, document) {
   const script = document.createElement("script");
-  script.src = "/dist/widgetLoader.js";
+  script.src = `${process.env.METROPOLIS_URL}dist/widgetLoader.js`;
   script.id = "metropolis-search-widget-script";
   script.setAttribute("data-app", "cls");
   script.setAttribute("data-trigger-class", "metropolis-search-widget-trigger");

@@ -294,8 +294,8 @@ function averageGeolocation(coords) {
   let z = 0.0;
 
   for (let coord of coords) {
-    let lat = (coord.lat * Math.PI) / 180;
-    let lon = (coord.lon * Math.PI) / 180;
+    let lat = coord.lat * Math.PI / 180;
+    let lon = coord.lon * Math.PI / 180;
 
     x += Math.cos(lat) * Math.cos(lon);
     y += Math.cos(lat) * Math.sin(lon);
@@ -313,8 +313,8 @@ function averageGeolocation(coords) {
   let centralLatitude = Math.atan2(z, centralSquareRoot);
 
   return {
-    lat: (centralLatitude * 180) / Math.PI,
-    lon: (centralLongitude * 180) / Math.PI
+    lat: centralLatitude * 180 / Math.PI,
+    lon: centralLongitude * 180 / Math.PI
   };
 }
 

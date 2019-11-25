@@ -126,6 +126,7 @@ const developmentConfig = merge.smartStrategy({
         NODE_ENV: JSON.stringify("development"),
         GOOGLE_ANALYTICS_ID: JSON.stringify("UA-127182065-1"),
         METROPOLIS_URL: JSON.stringify("http://localhost:8080/"),
+        CLS_URL: JSON.stringify("http://localhost:4200/"),
         CORS_ALLOWED_ORIGINS: JSON.stringify("http://localhost:8080")
       }
     }),
@@ -162,7 +163,8 @@ const productionConfig = merge(commonConfig, {
         BROWSER: JSON.stringify(true),
         NODE_ENV: JSON.stringify("production"),
         GOOGLE_ANALYTICS_ID: JSON.stringify("UA-127182065-1"),
-        METROPOLIS_URL: JSON.stringify(process.env.CLS_URL),
+        METROPOLIS_URL: JSON.stringify(process.env.METROPOLIS_URL),
+        CLS_URL: JSON.stringify(process.env.CLS_URL),
         CORS_ALLOWED_ORIGINS: JSON.stringify(process.env.CORS_ALLOWED_ORIGINS)
       }
     }),

@@ -149,7 +149,9 @@ export function normalizeMapParams(params) {
 export async function getParcelAddresses(lat, long, map_dmp_id) {
   try {
     const response = await apiFetch(
-      `/api/reverseGeocode/cls?lat=${lat}&long=${long}&map_dmp_id=${map_dmp_id}`,
+      `${
+        process.env.METROPOLIS_URL
+      }api/reverseGeocode/cls?lat=${lat}&long=${long}&map_dmp_id=${map_dmp_id}`,
       {
         method: "get"
       }
