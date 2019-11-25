@@ -59,7 +59,9 @@ export async function sendWelcomeEmail(toEmail, emailType) {
   const sendRawEmail = promisify(client.sendRawEmail.bind(client));
   let CRLF = "\r\n";
   let rawMessage = [
-    `From: "Moody's Commercial Location Score" <${process.env.MOODYS_CLS_EMAIL_ADDRESS}>`,
+    `From: "Moody's Commercial Location Score" <${
+      process.env.MOODYS_CLS_EMAIL_ADDRESS
+    }>`,
     `To: "CLS User" <${toEmail}>`,
     `Subject: ${EMAILS[emailType].subject}`,
     "Content-Type: multipart/mixed;",

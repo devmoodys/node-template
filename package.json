@@ -3,13 +3,19 @@
   "version": "1.0.0",
   "description": "A backend node app for CLS",
   "main": "app.js",
+  "config": {
+    "js_files": "webpack.config.js postcss.config.js src/**/*.{js,jsx}",
+    "scss_files": "src/ui/*/*.scss src/ui/*/*/*.scss src/ui/*/*/*/*.scss src/ui/*/*/*/*/*.scss src/widgetLoader/*.scss"
+  },
   "scripts": {
     "clean": "rimraf build/*",
     "build": "npx webpack",
     "start": "redis-server & node ./build/server",
     "start:production": "node ./build/server",
     "watch": "node ./bin/dev-watch",
-    "dev": "npm run clean & redis-server & npm run watch"
+    "dev": "npm run clean & redis-server & npm run watch",
+    "lint": "npm run eslint",
+    "eslint": "eslint $npm_package_config_js_files"
   },
   "author": "",
   "license": "ISC",
