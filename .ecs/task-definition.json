@@ -1,5 +1,5 @@
 {
-  "family": "metropolis",
+  "family": "cls",
   "containerDefinitions": [
     {
       "portMappings": [
@@ -13,9 +13,9 @@
       "logConfiguration": {
           "logDriver": "awslogs",
           "options": {
-              "awslogs-group": "metropolis",
+              "awslogs-group": "cls",
               "awslogs-region": "us-west-2",
-              "awslogs-stream-prefix": "metropolis"
+              "awslogs-stream-prefix": "cls"
           }
       },
       "cpu": 0,
@@ -23,7 +23,7 @@
       "ulimits": [],
       "memory": 600,
       "image": "%ECR_URI%:%SHA%",
-      "name": "metropolis"
+      "name": "cls-container"
     }
   ]
 }

@@ -12,6 +12,13 @@ WORKDIR /metropolis
 # Copy our dependency requirements
 COPY package.json yarn.lock ./
 
+RUN apk add --no-cache --virtual .gyp \
+  python \
+  make \
+  g++ \
+  && yarn install \
+  && apk del .gyp
+
 # Install js dependencies
 RUN yarn install
 

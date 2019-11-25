@@ -6,7 +6,8 @@
   "scripts": {
     "clean": "rimraf build/*",
     "build": "npx webpack",
-    "start": "node ./dist/server.js",
+    "start": "redis-server & node ./build/server",
+    "start:production": "node ./build/server",
     "watch": "node ./bin/dev-watch",
     "dev": "npm run clean & redis-server & npm run watch"
   },

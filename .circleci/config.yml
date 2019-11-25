@@ -62,8 +62,8 @@ jobs:
             export AWS_SECRET_ACCESS_KEY=${SANDBOX_AWS_SECRET_ACCESS_KEY}
             export AWS_REGION="us-west-2"
             export CLUSTER_NAME=carbonfive
-            export SERVICE_NAME=carbonfive-metro
-            export TASK_FAMILY=metropolis
+            export SERVICE_NAME=carbonfive-cls
+            export TASK_FAMILY=cls
             export SECRETS_BUCKET_NAME=${SANDBOX_SECRETS_BUCKET_NAME}
             export TASK_DEFINITION_TEMPLATE=task-definition.json
             export ECR_URI=${SANDBOX_ECR_URI}
