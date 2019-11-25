@@ -36,13 +36,13 @@ jobs:
       - run:
           name: Wait for Redis
           command: dockerize -wait tcp://localhost:6379 -timeout 1m
-      - run:
-          name: jest
-          command: yarn test --ci --testResultsProcessor="jest-junit" --runInBand
-          environment:
-            JEST_JUNIT_OUTPUT: ./tmp/test-results/jest.xml
-      - store_test_results:
-          path: ./tmp/test-results
+      # - run:
+      #     name: jest
+      #     command: yarn test --ci --testResultsProcessor="jest-junit" --runInBand
+      #     environment:
+      #       JEST_JUNIT_OUTPUT: ./tmp/test-results/jest.xml
+      # - store_test_results:
+      #     path: ./tmp/test-results
   deploy_sandbox:
     working_directory: ~/metropolis
     docker:
