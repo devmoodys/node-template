@@ -91,12 +91,13 @@ jobs:
           command: |
             sudo pip install --progress-bar off "awscli >= 1.11.190"
             export METROPOLIS_URL="https://cls.moodysanalytics.com/"
+            export CLS_URL="http://cls-nonprod-alb-919562592.us-west-2.elb.amazonaws.com"
             export AWS_ACCESS_KEY_ID=${NONPROD_AWS_ACCESS_KEY_ID}
             export AWS_SECRET_ACCESS_KEY=${NONPROD_AWS_SECRET_ACCESS_KEY}
             export AWS_REGION="us-west-2"
             export CLUSTER_NAME=metropolis-nonprod-cluster
-            export SERVICE_NAME=ecs-metropolis-service
-            export TASK_FAMILY=metropolis
+            export SERVICE_NAME=ecs-cls
+            export TASK_FAMILY=cls
             export SECRETS_BUCKET_NAME=${NONPROD_SECRETS_BUCKET_NAME}
             export TASK_DEFINITION_TEMPLATE=task-definition-nonprod.json
             export ECR_URI=${NONPROD_ECR_URI}

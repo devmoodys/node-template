@@ -1,0 +1,37 @@
+{
+  "family": "cls",
+  "containerDefinitions": [
+    {
+      "portMappings": [
+        {
+          "containerPort": 80
+        }
+      ],
+      "command": [
+        "yarn start:production"
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/cls",
+          "awslogs-region": "us-west-2",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "cpu": 0,
+      "environment": %ENVIRONMENT_JSON%,
+      "ulimits": [],
+      "memory": 600,
+      "image": "%ECR_URI%:%SHA%",
+      "name": "cls-container"
+    }
+  ],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "networkMode": "awsvpc",
+  "cpu": "4096",
+  "memory": "30720",
+  "taskRoleArn": "arn:aws:iam::013042028138:role/ecsTaskExecutionRole",
+  "executionRoleArn": "arn:aws:iam::013042028138:role/ecsTaskExecutionRole"
+}
