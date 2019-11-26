@@ -29,7 +29,7 @@ const commonConfig = merge.smartStrategy({
             options: {
               name: "[name].[ext]",
               outputPath: "dist/images/",
-              publicPath: "/"
+              publicPath: "dist/images/"
             }
           }
         ]
