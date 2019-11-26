@@ -13,9 +13,9 @@
       "logConfiguration": {
           "logDriver": "awslogs",
           "options": {
-              "awslogs-group": "cls",
+              "awslogs-group": "/ecs/cls",
               "awslogs-region": "us-west-2",
-              "awslogs-stream-prefix": "cls"
+              "awslogs-stream-prefix": "ecs"
           }
       },
       "cpu": 0,
