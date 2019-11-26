@@ -10,6 +10,6 @@ export function initializeSearchWidget(window, document) {
   window.Metropolis = {
     token: undefined,
     userNameRequesting: undefined,
-    partner: undefined
+    partner: "cls"
   };
 }
