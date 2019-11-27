@@ -5,6 +5,7 @@ import connection from "systems/db";
 import { getCompany } from "./companies";
 import { statusActive, companyTermActive } from "helpers/auth";
 import asArray from "helpers/asArray";
+import ApiClient from "services/users/apiClient";
 
 function toUser(row) {
   const {
@@ -30,57 +31,27 @@ function toUser(row) {
 }
 
 export async function find(id) {
-  return connection
-    .select([
-      "id",
-      "email",
-      "terms_accepted_at",
-      "role",
-      "company_id",
-      "status",
-      "notice_email_sent",
-      "login_types"
-    ])
-    .from("users")
-    .where("id", id)
-    .limit(1)
-    .map(toUser)
-    .then(users => {
-      if (users.length > 0) {
-        return users[0];
-      } else {
-        return false;
-      }
-    });
+  const apiClient = new ApiClient();
+  const user = await apiClient.getUser("id", id);
+  console.log(user);
+
+  if (!user) {
+    return false;
+  }
+  return toUser(user);
 }
 
 export async function authenticate(email, password) {
   if (!password) {
     return false;
   }
-
-  const userRows = await connection
-    .select([
-      "id",
-      "email",
-      "encrypted_password",
-      "terms_accepted_at",
-      "role",
-      "status",
-      "company_id",
-      "notice_email_sent",
-      "login_types"
-    ])
-    .from("users")
-    .where("email", email.toLowerCase())
-    .limit(1);
-
-  if (userRows.length <= 0) {
+  const user = await findUserByEmail(email);
+  console.log(email, user, "yoooo");
+  if (!user) {
     throw new Error("Username cannot be found");
   }
 
-  const userRow = userRows[0];
-  const { encrypted_password: encryptedPassword, status, company_id } = userRow;
+  const { encrypted_password: encryptedPassword, status, company_id } = user;
   const company = await getCompany(company_id);
   if (!statusActive(status)) {
     throw new Error("Your accout has been deactivated");
@@ -99,7 +70,7 @@ export async function authenticate(email, password) {
     throw new Error("Invalid password");
   }
 
-  return toUser(userRow);
+  return toUser(user);
 }
 
 export async function create(
@@ -133,11 +104,8 @@ export async function create(
 }
 
 export async function findUserByEmail(email) {
-  const user = await connection("users")
-    .where({
-      email: email.toLowerCase()
-    })
-    .first();
+  const apiClient = new ApiClient();
+  const user = await apiClient.getUser("email", email.toLowerCase());
   return user;
 }
 

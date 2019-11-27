@@ -1,6 +1,7 @@
 import connection from "systems/db";
 import moment from "moment";
 import { isBlank } from "helpers/presence";
+import ApiClient from "services/companies/apiClient";
 
 const DEFAULT_COMPANY_PARTNER_PERMISSIONS = [
   "cls",
@@ -18,11 +19,9 @@ const DEFAULT_COMPANY_PARTNER_PERMISSIONS = [
 ];
 
 export async function findCompanyByName(companyName) {
-  const companies = await connection("companies").where(
-    "company_name",
-    companyName
-  );
-  return companies[0];
+  const apiClient = new ApiClient();
+  const company = await apiClient.getCompany("company_name", companyName);
+  return company;
 }
 
 export async function createCompany(
@@ -48,15 +47,15 @@ export async function getCompany(companyId) {
   if (isBlank(companyId)) {
     return null;
   }
-  const companies = await connection("companies").where("id", companyId);
-  return companies[0];
+  const apiClient = new ApiClient();
+  const company = await apiClient.getCompany("id", companyId);
+  return company;
 }
 
 export async function getCompanies() {
-  const companies = await connection.raw(
-    "SELECT companies.id, companies.company_name, companies.max_active_users, companies.created_at, companies.end_date, companies.notice_date, count(distinct s.id)::integer as active_users FROM companies LEFT JOIN (SELECT * FROM users where status = 'active') s on s.company_id = companies.id GROUP BY companies.id ORDER BY companies.company_name"
-  );
-  return companies.rows;
+  const apiClient = new ApiClient();
+  const companies = await apiClient.getCompanies(1);
+  return companies;
 }
 
 export async function updateEndDate(companyId, endDate) {
