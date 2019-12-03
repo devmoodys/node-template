@@ -1,11 +1,12 @@
 import { compare, hash } from "bcryptjs";
-import { contains } from "ramda";
+import { contains, reject, isNil } from "ramda";
 import moment from "moment";
 import connection from "systems/db";
 import { getCompany } from "./companies";
 import { statusActive, companyTermActive } from "helpers/auth";
 import asArray from "helpers/asArray";
 import ApiClient from "services/users/apiClient";
+const apiClient = new ApiClient();
 
 function toUser(row) {
   const {
@@ -31,10 +32,7 @@ function toUser(row) {
 }
 
 export async function find(id) {
-  const apiClient = new ApiClient();
   const user = await apiClient.getUser("id", id);
-  console.log(user);
-
   if (!user) {
     return false;
   }
@@ -46,7 +44,6 @@ export async function authenticate(email, password) {
     return false;
   }
   const user = await findUserByEmail(email);
-  console.log(email, user, "yoooo");
   if (!user) {
     throw new Error("Username cannot be found");
   }
@@ -77,129 +74,120 @@ export async function create(
   email,
   password,
   role,
+  companyName,
   company_id = null,
   created_by_id = null
 ) {
-  const encryptedPasswordPromise = password
-    ? hash(password, 10)
-    : Promise.resolve(null);
+  const encrypted_password = await hash(password, 10);
 
   const roles = ["user", "admin", "superadmin"];
   const acceptableRole = contains(role, roles) ? role : "user";
 
-  return encryptedPasswordPromise.then(encrypted_password =>
-    connection
-      .insert({
-        email: email.toLowerCase(),
-        encrypted_password,
-        company_id,
-        created_by_id,
-        role: acceptableRole
-      })
-      .into("users")
-      .returning(["id", "email", "role", "status"])
-      .map(toUser)
-      .then(rows => rows[0])
-  );
+  await apiClient.createUser(companyName, {
+    email: email.toLowerCase(),
+    encrypted_password,
+    company_id,
+    created_by_id,
+    role: acceptableRole
+  });
+  const user = await findUserByEmail(email.toLowerCase());
+  return toUser(user);
 }
 
 export async function findUserByEmail(email) {
-  const apiClient = new ApiClient();
   const user = await apiClient.getUser("email", email.toLowerCase());
   return user;
 }
 
 export async function acceptTermsOfService(userId) {
-  await connection("users")
-    .where({
-      id: userId
-    })
-    .update({
-      terms_accepted_at: connection.fn.now()
-    });
+  const user = await apiClient.updateUser("id", userId, {
+    terms_accepted_at: moment()
+  });
+  return user;
 }
 
 export async function allUsersOfCompany(companyId) {
-  const userRows = await connection("users")
-    .select([
-      "id",
-      "email",
-      "role",
-      "status",
-      "notice_email_sent",
-      "login_types"
-    ])
-    .where("company_id", companyId)
-    .orderBy("email", "asc");
-
-  return userRows;
+  const users = await apiClient.getUsers("company_id", companyId, 1);
+  users.sort((userA, userB) => {
+    return userA.email >= userB.email ? 1 : -1;
+  });
+  return users.map(user => toUser(user));
 }
 
 export async function allActiveUsersOfCompany(companyId) {
-  const userRows = await connection
-    .select([
-      "id",
-      "email",
-      "role",
-      "status",
-      "notice_email_sent",
-      "login_types"
-    ])
-    .from("users")
-    .where({ company_id: companyId, status: "active" });
-
-  return userRows;
+  const users = await apiClient.getUsers("company_id", companyId, 1);
+  return reject(
+    isNil,
+    users.map(user => {
+      if (user.status !== "active") {
+        return null;
+      }
+      return user;
+    })
+  );
 }
 
 export async function allUsers() {
-  const userRows = await connection("users")
-    .leftOuterJoin("companies", "users.company_id", "companies.id")
-    .select([
-      "users.id",
-      "users.email",
-      "users.role",
-      "users.company_id",
-      "users.status",
-      "users.notice_email_sent",
-      "users.login_types",
-      "companies.company_name"
-    ])
-    .orderBy("users.email", "asc");
-
-  return userRows;
+  const users = await apiClient.getUsers("email", "all", 1);
+  users.sort((userA, userB) => {
+    return userA.email >= userB.email ? 1 : -1;
+  });
+  return users.map(user => toUser(user));
 }
 
-export async function remove(userId) {
-  await connection("users")
-    .where("id", userId)
-    .del();
-}
+// Maybe try to return to this later if company name is needed with the users.
+// export async function allUsers() {
+//   const userRows = await connection("users")
+//     .leftOuterJoin("companies", "users.company_id", "companies.id")
+//     .select([
+//       "users.id",
+//       "users.email",
+//       "users.role",
+//       "users.company_id",
+//       "users.status",
+//       "users.notice_email_sent",
+//       "users.login_types",
+//       "companies.company_name"
+//     ])
+//     .orderBy("users.email", "asc");
+
+//   return userRows;
+// }
+
+// export async function remove(userId) {
+//   await connection("users")
+//     .where("id", userId)
+//     .del();
+// }
 
 export async function deactivate(userId) {
-  await connection("users")
-    .where("id", userId)
-    .update({ status: "inactive" });
+  const user = await apiClient.updateUser("id", userId, {
+    status: "inactive"
+  });
+  return user;
 }
 
 export async function activate(userId) {
-  await connection("users")
-    .where("id", userId)
-    .update({ status: "active" });
+  const user = await apiClient.updateUser("id", userId, {
+    status: "active"
+  });
+  return user;
 }
-
 export async function updateNoticeEmailSent(userId) {
-  await connection("users")
-    .where("id", userId)
-    .update({ notice_email_sent: true });
+  const user = await apiClient.updateUser("id", userId, {
+    notice_email_sent: true
+  });
+  return user;
 }
 
 export async function updateUserLoginTypes(user, loginType) {
   const loginTypes = getUserLoginTypes(user);
   if (!loginTypes.includes(loginType)) {
     loginTypes.push(loginType);
-    await connection("users")
-      .where("id", user.id)
-      .update({ login_types: JSON.stringify(loginTypes) });
+    await apiClient.updateUser("login_types", user.id, {
+      login_types: JSON.stringify(loginTypes)
+    });
+    const user = await find(user.id);
     return { ...user, login_types: loginTypes };
   }
   return user;
@@ -217,12 +205,10 @@ export function getUserLoginTypes(user) {
 
 export async function setTemporaryPassword(userId, tempPassword) {
   const hashedTempPassword = await hash(tempPassword, 10);
-  await connection("users")
-    .where("id", userId)
-    .update({
-      temp_password: hashedTempPassword,
-      temp_password_expire_time: moment().add(10, "minutes")
-    });
+  await apiClient.updateUser("id", userId, {
+    temp_password: hashedTempPassword,
+    temp_password_expire_time: moment().add(10, "minutes")
+  });
 }
 
 export async function getInitialCustomWeights(userId) {
@@ -287,10 +273,7 @@ export async function checkTemporaryPassword(userId, tempPassword) {
   const {
     temp_password: hashedTempPassword,
     temp_password_expire_time: expireTime
-  } = await connection("users")
-    .select(["temp_password", "temp_password_expire_time"])
-    .where("id", userId)
-    .first();
+  } = await find(userId);
 
   if (!hashedTempPassword || !expireTime) {
     return false;
@@ -301,7 +284,7 @@ export async function checkTemporaryPassword(userId, tempPassword) {
 
 export async function changePassword(userId, newPassword) {
   const newHashedPassword = await hash(newPassword, 10);
-  await connection("users")
-    .where("id", userId)
-    .update({ encrypted_password: newHashedPassword });
+  await apiClient.updateUser("id", userId, {
+    encrypted_password: newHashedPassword
+  });
 }

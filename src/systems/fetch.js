@@ -64,6 +64,11 @@ export class JsonApiClient {
     return this.fetch(path, { method: "post", body });
   };
 
+  put = async (path, bodyObject) => {
+    const body = bodyObject ? JSON.stringify(bodyObject) : undefined;
+    return this.fetch(path, { method: "put", body });
+  };
+
   delete = async (path, bodyObject) => {
     const body = bodyObject ? JSON.stringify(bodyObject) : undefined;
     return this.fetch(path, { method: "delete", body });

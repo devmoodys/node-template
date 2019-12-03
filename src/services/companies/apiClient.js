@@ -1,5 +1,5 @@
 import { JsonApiClient } from "systems/fetch";
-export const API_URL = process.env.CLS_USERS_URL;
+export const API_URL = process.env.CLS_USERS_API_URL;
 
 export default class ApiClient {
   constructor() {
