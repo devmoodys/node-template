@@ -41,6 +41,7 @@ class UsersTable extends React.Component {
     } = this.props;
 
     const userArray = filteredUsers.length > 0 ? filteredUsers : users;
+    console.log(userArray);
     const userRows = userArray.map((user, i) => {
       if (user.nousers) {
         return (

@@ -44,6 +44,7 @@ export default function users(
     }
     case USERS_FETCH_SUCCESSFUL: {
       const { users, currentUser } = action;
+      console.log(runFiltersAfterFetch(state, users, currentUser));
       return runFiltersAfterFetch(state, users, currentUser);
     }
     case USERS_FETCH_FAILED: {

@@ -129,9 +129,11 @@ export async function allActiveUsersOfCompany(companyId) {
 
 export async function allUsers() {
   const users = await apiClient.getUsers("email", "all", 1);
+
   users.sort((userA, userB) => {
     return userA.email >= userB.email ? 1 : -1;
   });
+
   return users.map(user => toUser(user));
 }
 

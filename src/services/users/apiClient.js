@@ -1,9 +1,16 @@
 import { JsonApiClient } from "systems/fetch";
 export const API_URL = process.env.CLS_USERS_API_URL;
+export const API_KEY = process.env.CLS_USERS_API_KEY;
 
 export default class ApiClient {
   constructor() {
-    this.client = new JsonApiClient(API_URL);
+    this.client = new JsonApiClient(
+      API_URL,
+      {},
+      {
+        "x-api-key": API_KEY
+      }
+    );
   }
 
   getUser = async (field, values) => {

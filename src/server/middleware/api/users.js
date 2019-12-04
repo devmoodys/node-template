@@ -32,6 +32,7 @@ export async function users(req, res) {
   let users;
   if (role === "superadmin") {
     users = await allUsers();
+    console.log(users);
   } else if (role === "admin") {
     users = await allUsersOfCompany(companyId);
   }
@@ -105,7 +106,14 @@ export async function newUser(req, res) {
         frontendPasswordForDevs = password;
       }
 
-      const user = await create(email, password, role, companyId, createdById);
+      const user = await create(
+        email,
+        password,
+        role,
+        companyName,
+        companyId,
+        createdById
+      );
 
       res.json({ ...user, frontendPasswordForDevs });
     } else {
@@ -116,19 +124,7 @@ export async function newUser(req, res) {
       });
     }
   } catch (error) {
-    if (!error.detail && error.Message) {
-      return res.status(500).send({ error: error.Message });
-    }
-
-    const userExists = match(
-      /Key \(email\)=\([\d\W\w]+\) already exists./,
-      error.detail
-    );
-    if (userExists.length > 0) {
-      res.status(409).send({ error: `${email} already exists.` });
-    } else {
-      res.status(500).send({ error: error.detail });
-    }
+    res.status(409).send({ error: `${email} already exists.` });
   }
 }
 

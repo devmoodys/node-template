@@ -23,15 +23,7 @@ export async function newCompany(req, res) {
     );
     res.json(company);
   } catch (error) {
-    const companyExists = match(
-      /Key \(company_name\)=\([\d\W\w]+\) already exists./,
-      error.detail
-    );
-    if (companyExists.length > 0) {
-      res.status(409).send({ error: `${companyName} already exists.` });
-    } else {
-      res.status(500).send({ error: error.detail });
-    }
+    res.status(409).send({ error: `${companyName} already exists.` });
   }
 }
 

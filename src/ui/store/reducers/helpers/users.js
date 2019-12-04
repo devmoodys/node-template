@@ -16,16 +16,8 @@ const FILTERS = {
   }
 };
 
-export function runFiltersAfterFetch(state, users, currentUser) {
+export function runFiltersAfterFetch(state, users) {
   let { filters, filteredCompanyId, filteredRole, filteredStatus } = state;
-  if (filteredRole === "all") {
-    filters = ["role"];
-    if (hasSuperAdminAccess(currentUser.role)) {
-      filteredRole = "admin";
-    } else if (hasExclusiveAdminAccess(currentUser.role)) {
-      filteredRole = "user";
-    }
-  }
   if (filters.length === 0) {
     return merge(state, { users, status: "LOADED" });
   }
