@@ -6,7 +6,6 @@ import {
 } from "services/companies";
 import { allActiveUsersOfCompany } from "services/users";
 import moment from "moment";
-import { match } from "ramda";
 
 export async function companies(req, res) {
   const companies = await getCompanies();

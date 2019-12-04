@@ -21,7 +21,6 @@ import {
   sendPasswordChangeEmail
 } from "services/email/email";
 import { customPassword } from "services/password";
-import { match } from "ramda";
 import { creationAllowed } from "helpers/authorization";
 import { randomBase64String } from "helpers/strings";
 import authenticationClient from "server/middleware/externalAPI/v1/authenticationClient";
@@ -32,7 +31,6 @@ export async function users(req, res) {
   let users;
   if (role === "superadmin") {
     users = await allUsers();
-    console.log(users);
   } else if (role === "admin") {
     users = await allUsersOfCompany(companyId);
   }

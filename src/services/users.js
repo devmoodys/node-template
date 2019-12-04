@@ -101,7 +101,7 @@ export async function findUserByEmail(email) {
 
 export async function acceptTermsOfService(userId) {
   const user = await apiClient.updateUser("id", userId, {
-    terms_accepted_at: moment()
+    terms_accepted_at: Date.now()
   });
   return user;
 }
@@ -128,15 +128,14 @@ export async function allActiveUsersOfCompany(companyId) {
 }
 
 export async function allUsers() {
+  console.log("this works broski!");
   const users = await apiClient.getUsers("email", "all", 1);
-
   users.sort((userA, userB) => {
     return userA.email >= userB.email ? 1 : -1;
   });
 
   return users.map(user => toUser(user));
 }
-
 // Maybe try to return to this later if company name is needed with the users.
 // export async function allUsers() {
 //   const userRows = await connection("users")

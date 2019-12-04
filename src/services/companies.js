@@ -50,7 +50,7 @@ export async function getCompany(companyId) {
 }
 
 export async function getCompanies() {
-  const companies = await apiClient.getCompanies("company_name", "all", 1);
+  const companies = await apiClient.getCompanies("company_name", "all", "all");
   return companies;
 }
 

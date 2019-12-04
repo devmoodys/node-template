@@ -1,8 +1,4 @@
 import { mergeAll, merge } from "ramda";
-import {
-  hasSuperAdminAccess,
-  hasExclusiveAdminAccess
-} from "helpers/authorization";
 
 const FILTERS = {
   company: (users, companyId) => {
