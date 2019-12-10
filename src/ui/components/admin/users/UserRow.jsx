@@ -1,14 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
-import { connect } from "react-redux";
 import { hasSuperAdminAccess } from "helpers/authorization";
 
 import ToggleSwitch from "ui/components/apps/ToggleSwitch";
-import IconButton from "ui/components/shared/IconButton";
-import { showDeleteModal } from "ui/store/actions/deleteModal";
 
-function UserRow({ user, role, openDeleteModal, toggleStatus, currentUserId }) {
+function UserRow({ user, role, toggleStatus, currentUserId }) {
   function handleToggle(userId) {
     if (currentUserId !== userId) {
       toggleStatus(userId);
@@ -68,24 +65,6 @@ function UserRow({ user, role, openDeleteModal, toggleStatus, currentUserId }) {
           />
         )}
       </div>
-      <div
-        className={cx(
-          "UserRow__details",
-          { "ms-column-5": hasSuperAdminAccess(role) },
-          { "ms-column-4": !hasSuperAdminAccess(role) },
-          {
-            "fill-width": currentUserId === user.id
-          },
-          "text-center"
-        )}
-      >
-        {currentUserId !== user.id && (
-          <IconButton
-            src={require("../../../images/icon-x.svg")}
-            onClick={openDeleteModal.bind(this, user)}
-          />
-        )}
-      </div>
     </div>
   );
 }
@@ -94,16 +73,7 @@ UserRow.propTypes = {
   user: PropTypes.object,
   role: PropTypes.string,
   currentUserId: PropTypes.number,
-  toggleStatus: PropTypes.func,
-  openDeleteModal: PropTypes.func
+  toggleStatus: PropTypes.func
 };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    openDeleteModal: user => {
-      dispatch(showDeleteModal(user));
-    }
-  };
-}
-
-export default connect(null, mapDispatchToProps)(UserRow);
+export default UserRow;

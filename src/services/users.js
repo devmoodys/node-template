@@ -126,7 +126,6 @@ export async function allActiveUsersOfCompany(companyId) {
     users = users.concat(moreUsers);
     page++;
   }
-  console.log(users);
   return reject(
     isNil,
     users.map(user => {

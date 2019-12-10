@@ -3,7 +3,6 @@ import {
   allActiveUsersOfCompany,
   allUsers,
   create,
-  remove,
   deactivate,
   activate,
   find,
@@ -85,7 +84,9 @@ export async function newUser(req, res) {
 
   if (!canAddUsers(activeUsers, company)) {
     return res.status(403).send({
-      error: `Cannot add more than the max amount of users for company, which is ${company.max_active_users}`
+      error: `Cannot add more than the max amount of users for company, which is ${
+        company.max_active_users
+      }`
     });
   }
 
@@ -114,7 +115,9 @@ export async function newUser(req, res) {
       res.json({ ...user, frontendPasswordForDevs });
     } else {
       res.status(403).send({
-        error: `You are a ${req.user.role}. You do not have permission to create a user with the role ${role}`
+        error: `You are a ${
+          req.user.role
+        }. You do not have permission to create a user with the role ${role}`
       });
     }
   } catch (error) {
@@ -154,7 +157,9 @@ export async function toggleStatus(req, res) {
       );
       if (company && activeUsers.length >= company.max_active_users) {
         return res.status(403).send({
-          error: `Can't activate more than max active users which is ${company.max_active_users}`
+          error: `Can't activate more than max active users which is ${
+            company.max_active_users
+          }`
         });
       }
       await activate(user);

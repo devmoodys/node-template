@@ -12,14 +12,12 @@ import mapWidget from "ui/store/reducers/mapWidget";
 import users from "ui/store/reducers/users";
 import loginError from "ui/store/reducers/loginError";
 import companies from "ui/store/reducers/companies";
-import deleteModal from "ui/store/reducers/deleteModal";
 import mainLoginPage from "ui/store/reducers/mainLoginPage";
 import partnerIcons from "ui/store/reducers/partnerIcons";
 
 const rootReducer = combineReducers({
   reduxAsyncConnect,
   authenticated,
-  deleteModal,
   loginError,
   flash,
   expandFilters,

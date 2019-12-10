@@ -6,7 +6,6 @@ import UsersTable from "./UsersTable";
 import PropTypes from "prop-types";
 
 import AuthenticateAdmin from "ui/components/routing/AuthenticateAdmin";
-import DeleteModal from "ui/components/admin/users/DeleteModal";
 
 class UsersDashboard extends Component {
   render() {
@@ -18,7 +17,6 @@ class UsersDashboard extends Component {
         breadcrumbs={[{ label: "Dashboard", path: "/admin" }]}
         title={`Manage Users${companyName}`}
       >
-        <DeleteModal />
         <div className="UsersDashboard__new-user-button-container">
           <NavLink
             className="UsersDashboard__new-user-button Button Button--action"

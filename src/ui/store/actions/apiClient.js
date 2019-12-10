@@ -5,7 +5,7 @@ let jwt = null;
 
 function getJwt() {
   if (!jwt) {
-    jwt = Cookies.get("metropolis-jwt");
+    jwt = Cookies.get("cls-jwt");
   }
 
   return jwt;

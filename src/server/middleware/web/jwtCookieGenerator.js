@@ -7,7 +7,7 @@ export default function jwtCookieGenerator(request, response, next) {
     jwtPayload["id"] = request.user.id;
   }
   const jwt = sign(jwtPayload, process.env.JWT_KEY);
-  response.cookie("metropolis-jwt", jwt);
+  response.cookie("cls-jwt", jwt);
 
   next();
 }
