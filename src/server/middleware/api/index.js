@@ -16,7 +16,6 @@ import {
   toggleStatus,
   customizeWeights,
   getCustomizedWeights,
-  deleteUser,
   requestPasswordChange
 } from "server/middleware/api/users";
 
@@ -88,7 +87,6 @@ router.get(
   authenticate,
   wrapAsync(getCustomizedWeights)
 );
-router.delete("/users/delete", authenticate, adminOnly, wrapAsync(deleteUser));
 router.put(
   "/users/toggleStatus",
   authenticate,

@@ -52,7 +52,10 @@ function verify(username, password, done) {
     .then(user => {
       return updateUserLoginTypes(user, "local");
     })
-    .then(user => done(null, user))
+    .then(user => {
+      console.log(user);
+      return done(null, user);
+    })
     .catch(error => {
       logger.error(error.stack);
       done(null, false, { message: error.message });

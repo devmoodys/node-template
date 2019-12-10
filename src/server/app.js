@@ -26,6 +26,7 @@ app.use(
 app.use("/public", express.static("public"));
 // app.use("/sandbox", require("server/middleware/sandbox").default);
 app.use("/api", require("server/middleware/api").default);
+app.use("/api/v1", require("server/middleware/externalAPI/v1").default);
 
 if (process.env.NODE_ENV === "development") {
   setupWebpackHotReload(app);
@@ -35,5 +36,26 @@ app.use("/", require("server/middleware/web").default);
 export default app;
 
 if (module.hot) {
-  module.hot.accept();
+  module.hot
+    .accept
+    // [
+    //   "services/email/email.js",
+    //   "services/users.js",
+    //   "server/middleware/api/jwtVerify.js",
+    //   "server/middleware/api/acceptTerms.js",
+    //   "server/middleware/api/users.js",
+    //   "server/middleware/api/companies.js",
+    //   "server/middleware/web/passport/local.js",
+    //   "ui/buildServer.jsx",
+    //   "server/middleware/web/renderUI.js",
+    //   "server/middleware/web/renderMainUI.js",
+    //   "server/middleware/web/index.js",
+    //   "server/middleware/api/companies.js",
+    //   "server/middleware/web/passport/index.js",
+    //   "server/middleware/api/index.js",
+    //   "server/app.js",
+    //   "server/index.js"
+    // ],
+    // () => {}
+    ();
 }

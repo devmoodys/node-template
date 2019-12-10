@@ -17,13 +17,30 @@ import UsersTableFilters from "./UsersTableFilters";
 import ThreeBounceSpinner from "ui/components/spinners/ThreeBounceSpinner";
 
 class UsersTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { page: "1" };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange = event => {
+    this.setState({ page: event.target.value });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    this.props.loadUsers(parseInt(this.state.page));
+  };
+
   componentDidMount() {
     const { loadUsers, loadCompanies, currentUser: { role } } = this.props;
 
     if (hasSuperAdminAccess(role)) {
       loadCompanies();
     }
-    loadUsers();
+    loadUsers(1);
   }
 
   render() {
@@ -74,7 +91,20 @@ class UsersTable extends React.Component {
         {["FETCHING"].includes(usersStatus) ? (
           <ThreeBounceSpinner />
         ) : (
-          <div className="UsersTable__rows">{userRows}</div>
+          <div>
+            <div className="UsersTable__rows">{userRows}</div>
+            <form onSubmit={this.handleSubmit}>
+              <label>
+                Page:
+                <input
+                  type="text"
+                  value={this.state.page}
+                  onChange={this.handleChange}
+                />
+              </label>
+              <input type="submit" value="Submit" />
+            </form>
+          </div>
         )}
       </div>
     );
@@ -107,8 +137,8 @@ function mapStateToProps({ users, currentUser, companies }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadUsers: () => {
-      dispatch(fetchUsers());
+    loadUsers: page => {
+      dispatch(fetchUsers(page));
     },
     toggleUserStatus: userId => {
       dispatch(toggleUserStatus(userId));

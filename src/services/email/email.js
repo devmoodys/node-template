@@ -196,7 +196,7 @@ export async function sendNoticeEmail(toEmail) {
 }
 
 export async function sendPasswordChangeEmail(toEmail, tempPassword, token) {
-  const link = `${process.env.METROPOLIS_URL.replace(
+  const link = `${process.env.CLS_URL.replace(
     /\/$/,
     ""
   )}/resetPassword?email=${toEmail}&tempPassword=${encodeURIComponent(
@@ -224,6 +224,8 @@ export async function sendPasswordChangeEmail(toEmail, tempPassword, token) {
         </html>
       `.trim()
     },
-    function(_err, _data, _res) {}
+    function(_err, _data, _res) {
+      console.log(_err, _data);
+    }
   );
 }

@@ -50,8 +50,9 @@ export async function authenticate(email, password) {
 
   const { encrypted_password: encryptedPassword, status, company_id } = user;
   const company = await getCompany(company_id);
+  // TEMP
   if (!statusActive(status)) {
-    throw new Error("Your accout has been deactivated");
+    throw new Error("Your account has been deactivated");
   }
 
   if (!companyTermActive(company)) {
@@ -66,7 +67,6 @@ export async function authenticate(email, password) {
   if (!result) {
     throw new Error("Invalid password");
   }
-
   return toUser(user);
 }
 
@@ -99,15 +99,14 @@ export async function findUserByEmail(email) {
   return user;
 }
 
-export async function acceptTermsOfService(userId) {
-  const user = await apiClient.updateUser("id", userId, {
-    terms_accepted_at: Date.now()
+export async function acceptTermsOfService(user) {
+  await apiClient.updateUser("email", user.email, {
+    terms_accepted_at: moment()
   });
-  return user;
 }
 
-export async function allUsersOfCompany(companyId) {
-  const users = await apiClient.getUsers("company_id", companyId, 1);
+export async function allUsersOfCompany(companyId, page) {
+  const users = await apiClient.getUsers("company_id", companyId, page);
   users.sort((userA, userB) => {
     return userA.email >= userB.email ? 1 : -1;
   });
@@ -115,7 +114,19 @@ export async function allUsersOfCompany(companyId) {
 }
 
 export async function allActiveUsersOfCompany(companyId) {
-  const users = await apiClient.getUsers("company_id", companyId, 1);
+  let page = 1;
+  let users = [];
+  let moreUsers = [];
+  while (true) {
+    try {
+      moreUsers = await apiClient.getUsers("company_id", companyId, page);
+    } catch (e) {
+      break;
+    }
+    users = users.concat(moreUsers);
+    page++;
+  }
+  console.log(users);
   return reject(
     isNil,
     users.map(user => {
@@ -127,9 +138,8 @@ export async function allActiveUsersOfCompany(companyId) {
   );
 }
 
-export async function allUsers() {
-  console.log("this works broski!");
-  const users = await apiClient.getUsers("email", "all", 1);
+export async function allUsers(page) {
+  const users = await apiClient.getUsers("email", "all", page);
   users.sort((userA, userB) => {
     return userA.email >= userB.email ? 1 : -1;
   });
@@ -155,27 +165,19 @@ export async function allUsers() {
 //   return userRows;
 // }
 
-// export async function remove(userId) {
-//   await connection("users")
-//     .where("id", userId)
-//     .del();
-// }
-
-export async function deactivate(userId) {
-  const user = await apiClient.updateUser("id", userId, {
+export async function deactivate(user) {
+  await apiClient.updateUser("email", user.email, {
     status: "inactive"
   });
-  return user;
 }
 
-export async function activate(userId) {
-  const user = await apiClient.updateUser("id", userId, {
+export async function activate(user) {
+  await apiClient.updateUser("email", user.email, {
     status: "active"
   });
-  return user;
 }
-export async function updateNoticeEmailSent(userId) {
-  const user = await apiClient.updateUser("id", userId, {
+export async function updateNoticeEmailSent(user) {
+  await apiClient.updateUser("email", user.email, {
     notice_email_sent: true
   });
   return user;
@@ -185,11 +187,11 @@ export async function updateUserLoginTypes(user, loginType) {
   const loginTypes = getUserLoginTypes(user);
   if (!loginTypes.includes(loginType)) {
     loginTypes.push(loginType);
-    await apiClient.updateUser("login_types", user.id, {
+    await apiClient.updateUser("email", user.email, {
       login_types: JSON.stringify(loginTypes)
     });
-    const user = await find(user.id);
-    return { ...user, login_types: loginTypes };
+    const userObj = await find(user.id);
+    return { ...userObj, login_types: loginTypes };
   }
   return user;
 }
@@ -204,11 +206,11 @@ export function getUserLoginTypes(user) {
   return loginTypes;
 }
 
-export async function setTemporaryPassword(userId, tempPassword) {
+export async function setTemporaryPassword(user, tempPassword) {
   const hashedTempPassword = await hash(tempPassword, 10);
-  await apiClient.updateUser("id", userId, {
+  await apiClient.updateUser("email", user.email, {
     temp_password: hashedTempPassword,
-    temp_password_expire_time: moment().add(10, "minutes")
+    temp_password_expire_time: moment().add(15, "minutes")
   });
 }
 
@@ -270,11 +272,11 @@ export async function setUsersCustomWeights(
   }
 }
 
-export async function checkTemporaryPassword(userId, tempPassword) {
+export async function checkTemporaryPassword(user, tempPassword) {
   const {
     temp_password: hashedTempPassword,
     temp_password_expire_time: expireTime
-  } = await find(userId);
+  } = user;
 
   if (!hashedTempPassword || !expireTime) {
     return false;
@@ -283,9 +285,9 @@ export async function checkTemporaryPassword(userId, tempPassword) {
   return correctTempPassword && moment() < moment(expireTime);
 }
 
-export async function changePassword(userId, newPassword) {
+export async function changePassword(user, newPassword) {
   const newHashedPassword = await hash(newPassword, 10);
-  await apiClient.updateUser("id", userId, {
+  await apiClient.updateUser("email", user.email, {
     encrypted_password: newHashedPassword
   });
 }

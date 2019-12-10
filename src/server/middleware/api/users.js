@@ -28,11 +28,12 @@ import authenticationClient from "server/middleware/externalAPI/v1/authenticatio
 export async function users(req, res) {
   const companyId = req.user.company_id;
   const role = req.user.role;
+  const { page } = req.query;
   let users;
   if (role === "superadmin") {
-    users = await allUsers();
+    users = await allUsers(page);
   } else if (role === "admin") {
-    users = await allUsersOfCompany(companyId);
+    users = await allUsersOfCompany(companyId, page);
   }
   res.json(users);
 }
@@ -53,17 +54,16 @@ function canAddUsers(activeUsers, company) {
   );
 }
 
-async function getNewUserCompanyId(currentUser, companyName) {
+async function getNewUserCompany(currentUser, companyName) {
   const roleMap = {
     admin: async function() {
-      return currentUser.company_id;
+      return await getCompany(currentUser.company_id);
     },
     superadmin: async function() {
       if (!companyName) {
         return null;
       }
-      const company = await findCompanyByName(companyName);
-      return company && company.id;
+      return await findCompanyByName(companyName);
     }
   };
   return await roleMap[currentUser.role]();
@@ -73,21 +73,19 @@ export async function newUser(req, res) {
   const { email, role, companyName } = req.body;
   const createdById = req.user.id;
 
-  const companyId = await getNewUserCompanyId(req.user, companyName);
-
-  if (!companyId) {
+  const company = await getNewUserCompany(req.user, companyName);
+  // console.log("yooo", companyName, companyId);
+  if (!company) {
     return res.status(403).send({
       error: "Company does not exist to add user to!"
     });
   }
 
-  const { activeUsers, company } = await getActiveUsersAndCompanyObj(companyId);
+  const { activeUsers } = await getActiveUsersAndCompanyObj(company.id);
 
   if (!canAddUsers(activeUsers, company)) {
     return res.status(403).send({
-      error: `Cannot add more than the max amount of users for company, which is ${
-        company.max_active_users
-      }`
+      error: `Cannot add more than the max amount of users for company, which is ${company.max_active_users}`
     });
   }
 
@@ -108,17 +106,15 @@ export async function newUser(req, res) {
         email,
         password,
         role,
-        companyName,
-        companyId,
+        company.company_name,
+        company.id,
         createdById
       );
 
       res.json({ ...user, frontendPasswordForDevs });
     } else {
       res.status(403).send({
-        error: `You are a ${
-          req.user.role
-        }. You do not have permission to create a user with the role ${role}`
+        error: `You are a ${req.user.role}. You do not have permission to create a user with the role ${role}`
       });
     }
   } catch (error) {
@@ -151,39 +147,18 @@ export async function toggleStatus(req, res) {
 
   if (user) {
     if (user.status === "active") {
-      await deactivate(userId);
+      await deactivate(user);
     } else if (user.status === "inactive") {
       const { activeUsers, company } = await getActiveUsersAndCompanyObj(
         user.company_id
       );
       if (company && activeUsers.length >= company.max_active_users) {
         return res.status(403).send({
-          error: `Can't activate more than max active users which is ${
-            company.max_active_users
-          }`
+          error: `Can't activate more than max active users which is ${company.max_active_users}`
         });
       }
-      await activate(userId);
+      await activate(user);
     }
-    return res.sendStatus(200);
-  } else {
-    res.status(403).send({ error: "User does not exist!" });
-  }
-}
-
-export async function deleteUser(req, res) {
-  const { userId } = req.body;
-  const currentUser = req.user;
-  const user = await find(userId);
-
-  if (!canUpdateUserData(currentUser, user)) {
-    return res.status(403).send({
-      error: "Cannot delete this user!"
-    });
-  }
-
-  if (user) {
-    await remove(userId);
     return res.sendStatus(200);
   } else {
     res.status(403).send({ error: "User does not exist!" });
@@ -228,11 +203,12 @@ export async function requestPasswordChange(req, res) {
     return res.json({ message: `Password Reset email was sent to ${email}!` });
   }
   const loginTypes = getUserLoginTypes(user);
+  // TEMP
   if (!loginTypes.includes("local")) {
     return res.status(409).send({ error: "This user cannot reset password!" });
   }
   const tempPassword = await randomBase64String();
-  await setTemporaryPassword(user.id, tempPassword);
+  await setTemporaryPassword(user, tempPassword);
   const externalAuthenticationClient = new authenticationClient();
   const token = await externalAuthenticationClient.authenticate();
   await sendPasswordChangeEmail(email, tempPassword, token);

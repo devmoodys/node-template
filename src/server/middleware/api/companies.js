@@ -40,6 +40,7 @@ export async function updateCompany(req, res) {
   ) {
     return res.status(409).send({ error: "invalid input" });
   }
+  // TEMP
   const isValidMaxActiveUsers = await validMaxActiveUsers(
     companyId,
     maxActiveUsers

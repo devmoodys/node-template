@@ -27,7 +27,8 @@
       {
         "ignoreTranspilerName": true
       }
-    ]
+    ],
+    "no-constant-condition": "off"
   },
   "extends": [
     "eslint:recommended",

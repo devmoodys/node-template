@@ -14,12 +14,12 @@ export const FILTER_USERS_BY_COMPANY = "FILTER_USERS_BY_COMPANY";
 export const FILTER_USERS_BY_ROLE = "FILTER_USERS_BY_ROLE";
 export const FILTER_USERS_BY_STATUS = "FILTER_USERS_BY_STATUS";
 
-export function fetchUsers() {
+export function fetchUsers(page) {
   return async function(dispatch, getState) {
     let { currentUser } = getState();
     dispatch(usersFetching());
     try {
-      const response = await apiFetch("/api/users");
+      const response = await apiFetch(`/api/users?page=${page}`);
       const responseBody = await response.json();
       if (!response.ok) {
         throw new Error(responseBody.error.message);
@@ -47,7 +47,7 @@ export function toggleUserStatus(userId) {
         throw new Error(responseBody.error);
       }
       dispatch(userStatusUpdateSuccessful());
-      dispatch(fetchUsers());
+      dispatch(fetchUsers(1));
     } catch (e) {
       dispatch(
         showFlash({
@@ -156,38 +156,6 @@ export function createNewUser(params, history, access) {
           }`
         );
       }
-    } catch (e) {
-      dispatch(
-        showFlash({
-          type: "error",
-          message: `${e}`
-        })
-      );
-    }
-  };
-}
-
-export function deleteUser(user) {
-  return async function(dispatch) {
-    const reqBody = { userId: user.id };
-    dispatch(userDeleting());
-    try {
-      const response = await apiFetch("/api/users/delete", {
-        method: "delete",
-        body: JSON.stringify(reqBody)
-      });
-      if (!response.ok) {
-        const responseBody = await response.json();
-        throw new Error(responseBody.error.message);
-      }
-      dispatch(userDeleteSuccessful());
-      dispatch(
-        showFlash({
-          type: "success",
-          message: `${user.email} has been deleted`
-        })
-      );
-      dispatch(fetchUsers());
     } catch (e) {
       dispatch(
         showFlash({

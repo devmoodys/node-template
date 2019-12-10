@@ -56,14 +56,16 @@ export async function getCompanies() {
 
 export async function updateEndDate(companyId, endDate) {
   const noticeDate = moment(endDate).subtract(1, "week");
-  await apiClient.updateCompany("id", companyId, {
+  const company = await getCompany(companyId);
+  await apiClient.updateCompany("company_name", company.company_name, {
     end_date: moment(endDate),
     notice_date: noticeDate
   });
 }
 
 export async function updateMaxActiveUsers(companyId, maxActiveUsers) {
-  await apiClient.updateCompany("id", companyId, {
+  const company = await getCompany(companyId);
+  await apiClient.updateCompany("company_name", company.company_name, {
     max_active_users: maxActiveUsers
   });
 }
