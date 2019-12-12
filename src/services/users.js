@@ -6,6 +6,8 @@ import { getCompany } from "./companies";
 import { statusActive, companyTermActive } from "helpers/auth";
 import asArray from "helpers/asArray";
 import ApiClient from "services/users/apiClient";
+import authenticationClient from "server/middleware/externalAPI/v1/authenticationClient";
+
 const apiClient = new ApiClient();
 
 function toUser(row) {
@@ -92,6 +94,40 @@ export async function create(
   });
   const user = await findUserByEmail(email.toLowerCase());
   return toUser(user);
+}
+
+export async function createReisNetworkUser(
+  email,
+  password,
+  role,
+  companyName,
+  userCreatingUser
+) {
+  const roles = ["user", "admin", "superadmin"];
+  const acceptableRole = contains(role, roles) ? role : "user";
+  const externalAuthenticationClient = new authenticationClient();
+  const token = await externalAuthenticationClient.authenticate();
+  const metroClient = new ApiClient(token);
+  if (userCreatingUser.role === "superadmin") {
+    await metroClient.createReisNetworkUser(
+      email,
+      acceptableRole,
+      companyName,
+      userCreatingUser,
+      password
+    );
+  } else {
+    const userCreatingUserInCompany = await getCompany(
+      userCreatingUser.company_id
+    );
+    await metroClient.createReisNetworkUser(
+      email,
+      acceptableRole,
+      userCreatingUserInCompany.company_name,
+      userCreatingUser,
+      password
+    );
+  }
 }
 
 export async function findUserByEmail(email) {

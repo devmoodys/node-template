@@ -2,6 +2,7 @@ import connection from "systems/db";
 import moment from "moment";
 import { isBlank } from "helpers/presence";
 import ApiClient from "services/companies/apiClient";
+import authenticationClient from "server/middleware/externalAPI/v1/authenticationClient";
 const apiClient = new ApiClient();
 
 const DEFAULT_COMPANY_PARTNER_PERMISSIONS = [
@@ -39,6 +40,21 @@ export async function createCompany(
   });
   const company = await findCompanyByName(companyName);
   return company;
+}
+
+export async function createCompanyInReisNetwork(
+  companyName,
+  maxActiveUsers,
+  accountActiveLength = "2 weeks"
+) {
+  const externalAuthenticationClient = new authenticationClient();
+  const token = await externalAuthenticationClient.authenticate();
+  const metroClient = new ApiClient(token);
+  return await metroClient.createCompanyInReisNetwork(
+    companyName,
+    maxActiveUsers,
+    accountActiveLength
+  );
 }
 
 export async function getCompany(companyId) {

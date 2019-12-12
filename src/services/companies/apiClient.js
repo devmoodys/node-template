@@ -1,9 +1,10 @@
 import { JsonApiClient } from "systems/fetch";
 export const API_URL = process.env.CLS_USERS_API_URL;
 export const API_KEY = process.env.CLS_USERS_API_KEY;
+export const REIS_NETWORK_URL = process.env.METROPOLIS_URL;
 
 export default class ApiClient {
-  constructor() {
+  constructor(token) {
     this.client = new JsonApiClient(
       API_URL,
       {},
@@ -11,6 +12,13 @@ export default class ApiClient {
         "x-api-key": API_KEY
       }
     );
+    if (token) {
+      this.metroClient = new JsonApiClient(
+        REIS_NETWORK_URL,
+        {},
+        { Authorization: `Bearer ${token}` }
+      );
+    }
   }
 
   getCompany = async (field, values) => {
@@ -27,6 +35,20 @@ export default class ApiClient {
     const response = await this.client.post("v1/cre/admin/company", [
       companyObj
     ]);
+    const result = await response.json();
+    return result;
+  };
+
+  createCompanyInReisNetwork = async (
+    companyName,
+    maxActiveUsers,
+    accountActiveLength
+  ) => {
+    const response = await this.metroClient.post("api/v1/newCompany", {
+      companyName,
+      maxActiveUsers,
+      accountActiveLength
+    });
     const result = await response.json();
     return result;
   };

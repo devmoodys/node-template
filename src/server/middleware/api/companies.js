@@ -2,7 +2,8 @@ import {
   createCompany,
   getCompanies,
   updateEndDate,
-  updateMaxActiveUsers
+  updateMaxActiveUsers,
+  createCompanyInReisNetwork
 } from "services/companies";
 import { allActiveUsersOfCompany } from "services/users";
 import moment from "moment";
@@ -20,8 +21,14 @@ export async function newCompany(req, res) {
       maxActiveUsers,
       accountActiveLength
     );
+    await createCompanyInReisNetwork(
+      companyName,
+      maxActiveUsers,
+      accountActiveLength
+    );
     res.json(company);
   } catch (error) {
+    console.log(error);
     res.status(409).send({ error: `${companyName} already exists.` });
   }
 }

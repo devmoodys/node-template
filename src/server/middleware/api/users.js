@@ -10,7 +10,8 @@ import {
   getInitialCustomWeights,
   findUserByEmail,
   getUserLoginTypes,
-  setTemporaryPassword
+  setTemporaryPassword,
+  createReisNetworkUser
 } from "services/users";
 import { findCompanyByName, getCompany } from "services/companies";
 import {
@@ -110,6 +111,14 @@ export async function newUser(req, res) {
         company.company_name,
         company.id,
         createdById
+      );
+      // creates a reis network user because cls users also have reis network
+      await createReisNetworkUser(
+        email,
+        password,
+        role,
+        company.company_name,
+        req.user
       );
 
       res.json({ ...user, frontendPasswordForDevs });
