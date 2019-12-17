@@ -1,9 +1,6 @@
 import { mergeAll, merge } from "ramda";
 
 const FILTERS = {
-  company: (users, companyId) => {
-    return users.filter(user => user.company_id === parseInt(companyId));
-  },
   role: (users, role) => {
     return users.filter(user => user.role === role);
   },
@@ -13,7 +10,7 @@ const FILTERS = {
 };
 
 export function runFiltersAfterFetch(state, users) {
-  let { filters, filteredCompanyId, filteredRole, filteredStatus } = state;
+  let { filters, filteredRole, filteredStatus } = state;
   if (filters.length === 0) {
     return merge(state, { users, status: "LOADED" });
   }
@@ -21,7 +18,6 @@ export function runFiltersAfterFetch(state, users) {
   const newUserRowArray = runToggledFilters(
     filters,
     users,
-    filteredCompanyId,
     filteredRole,
     filteredStatus
   );
@@ -40,16 +36,9 @@ export function runFiltersAfterFetch(state, users) {
 }
 
 export function runFiltersAndReturnState(state, action, filterString) {
-  const {
-    users,
-    filters,
-    filteredCompanyId,
-    filteredRole,
-    filteredStatus
-  } = state;
+  const { users, filters, filteredRole, filteredStatus } = state;
   const filterType = getFilterType(action);
 
-  const companyId = filterType === "company" ? filterString : filteredCompanyId;
   const role = filterType === "role" ? filterString : filteredRole;
   const status = filterType === "status" ? filterString : filteredStatus;
 
@@ -58,13 +47,7 @@ export function runFiltersAndReturnState(state, action, filterString) {
       ? removeAndUpdateFilters(filters, filterType)
       : addAndUpdateFilters(filters, filterType);
 
-  const newUserRowArray = runToggledFilters(
-    newFilters,
-    users,
-    companyId,
-    role,
-    status
-  );
+  const newUserRowArray = runToggledFilters(newFilters, users, role, status);
 
   if (newUserRowArray.length === 0 && newFilters.length > 0) {
     newUserRowArray.push({ nousers: true });
@@ -82,9 +65,7 @@ export function runFiltersAndReturnState(state, action, filterString) {
 }
 
 function getFilterType(action) {
-  if (action.hasOwnProperty("companyId")) {
-    return "company";
-  } else if (action.hasOwnProperty("role")) {
+  if (action.hasOwnProperty("role")) {
     return "role";
   } else if (action.hasOwnProperty("status")) {
     return "status";
@@ -93,8 +74,6 @@ function getFilterType(action) {
 
 function returnUpdatedFilter(filterType, newFilterString) {
   switch (filterType) {
-    case "company":
-      return { filteredCompanyId: newFilterString };
     case "role":
       return { filteredRole: newFilterString };
     case "status":
@@ -102,13 +81,7 @@ function returnUpdatedFilter(filterType, newFilterString) {
   }
 }
 
-function runToggledFilters(
-  filters,
-  users,
-  filteredCompanyId,
-  filteredRole,
-  filteredStatus
-) {
+function runToggledFilters(filters, users, filteredRole, filteredStatus) {
   if (filters.length === 0) {
     return [];
   }
@@ -116,9 +89,6 @@ function runToggledFilters(
 
   filters.forEach(filter => {
     switch (filter) {
-      case "company":
-        filteredResult = FILTERS.company(filteredResult, filteredCompanyId);
-        break;
       case "role":
         filteredResult = FILTERS.role(filteredResult, filteredRole);
         break;

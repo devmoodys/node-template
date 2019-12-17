@@ -6,7 +6,6 @@ import { hasSuperAdminAccess } from "helpers/authorization";
 import {
   fetchUsers,
   toggleUserStatus,
-  filterUsersByCompany,
   filterUsersByRole,
   filterUsersByStatus
 } from "ui/store/actions/users";
@@ -19,19 +18,27 @@ import ThreeBounceSpinner from "ui/components/spinners/ThreeBounceSpinner";
 class UsersTable extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { page: "1" };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = { page: "1", companyId: "all" };
   }
 
-  handleChange = event => {
+  handlePageChange = event => {
     this.setState({ page: event.target.value });
   };
 
-  handleSubmit = event => {
+  setCompanyId = event => {
+    const companyId = event.target.value;
+    this.setState({ page: "1", companyId });
+    this.props.loadUsers(1, companyId);
+  };
+
+  handlePageSubmit = event => {
     event.preventDefault();
-    this.props.loadUsers(parseInt(this.state.page));
+    this.props.loadUsers(parseInt(this.state.page), this.state.companyId);
+  };
+
+  toggleStatus = userId => {
+    this.props.toggleUserStatus(userId);
+    this.props.loadUsers(parseInt(this.state.page), this.state.companyId);
   };
 
   componentDidMount() {
@@ -46,14 +53,12 @@ class UsersTable extends React.Component {
   render() {
     const {
       filteredUsers,
-      filterCompany,
       filterRole,
       filterStatus,
       users,
       companies,
       currentUser: { role },
       currentUser: { id },
-      toggleUserStatus,
       usersStatus
     } = this.props;
 
@@ -71,7 +76,7 @@ class UsersTable extends React.Component {
           role={role}
           user={user}
           key={`user-row-${i}`}
-          toggleStatus={toggleUserStatus}
+          toggleStatus={this.toggleStatus}
           currentUserId={id}
         />
       );
@@ -83,7 +88,7 @@ class UsersTable extends React.Component {
         {hasSuperAdminAccess(role) && (
           <UsersTableFilters
             filterRole={filterRole}
-            filterCompany={filterCompany}
+            setCompanyId={this.setCompanyId}
             filterStatus={filterStatus}
             companies={companies}
           />
@@ -93,13 +98,13 @@ class UsersTable extends React.Component {
         ) : (
           <div>
             <div className="UsersTable__rows">{userRows}</div>
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handlePageSubmit}>
               <label>
                 Page:
                 <input
                   type="text"
                   value={this.state.page}
-                  onChange={this.handleChange}
+                  onChange={this.handlePageChange}
                 />
               </label>
               <input type="submit" value="Submit" />
@@ -116,7 +121,6 @@ UsersTable.propTypes = {
   users: PropTypes.array.isRequired,
   companies: PropTypes.array.isRequired,
   loadUsers: PropTypes.func.isRequired,
-  filterCompany: PropTypes.func.isRequired,
   filterRole: PropTypes.func.isRequired,
   filterStatus: PropTypes.func.isRequired,
   toggleUserStatus: PropTypes.func.isRequired,
@@ -137,17 +141,14 @@ function mapStateToProps({ users, currentUser, companies }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    loadUsers: page => {
-      dispatch(fetchUsers(page));
+    loadUsers: (page, companyId) => {
+      dispatch(fetchUsers(page, companyId));
     },
     toggleUserStatus: userId => {
       dispatch(toggleUserStatus(userId));
     },
     loadCompanies: () => {
       dispatch(fetchCompanies());
-    },
-    filterCompany: e => {
-      dispatch(filterUsersByCompany(e.target.value));
     },
     filterRole: e => {
       dispatch(filterUsersByRole(e.target.value));

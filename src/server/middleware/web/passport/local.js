@@ -53,7 +53,6 @@ function verify(username, password, done) {
       return updateUserLoginTypes(user, "local");
     })
     .then(user => {
-      console.log(user);
       return done(null, user);
     })
     .catch(error => {

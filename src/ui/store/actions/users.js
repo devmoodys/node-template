@@ -10,16 +10,17 @@ export const USERS_STATUS_UPDATING = "USERS_STATUS_UPDATING";
 export const USERS_STATUS_UPDATE_SUCCESSFUL = "USERS_STATUS_UPDATE_SUCCESSFUL";
 export const USER_DELETING = "USER_DELETING";
 export const USER_DELETE_SUCCESSFUL = "USER_DELETE_SUCCESSFUL";
-export const FILTER_USERS_BY_COMPANY = "FILTER_USERS_BY_COMPANY";
 export const FILTER_USERS_BY_ROLE = "FILTER_USERS_BY_ROLE";
 export const FILTER_USERS_BY_STATUS = "FILTER_USERS_BY_STATUS";
 
-export function fetchUsers(page) {
+export function fetchUsers(page, companyId = "all") {
   return async function(dispatch, getState) {
     let { currentUser } = getState();
     dispatch(usersFetching());
     try {
-      const response = await apiFetch(`/api/users?page=${page}`);
+      const response = await apiFetch(
+        `/api/users?page=${page}&companyId=${companyId}`
+      );
       const responseBody = await response.json();
       if (!response.ok) {
         throw new Error(responseBody.error.message);
@@ -47,7 +48,6 @@ export function toggleUserStatus(userId) {
         throw new Error(responseBody.error);
       }
       dispatch(userStatusUpdateSuccessful());
-      dispatch(fetchUsers(1));
     } catch (e) {
       dispatch(
         showFlash({
@@ -89,13 +89,6 @@ function usersFetchFailed(error) {
   return {
     error,
     type: USERS_FETCH_FAILED
-  };
-}
-
-export function filterUsersByCompany(companyId) {
-  return {
-    companyId,
-    type: FILTER_USERS_BY_COMPANY
   };
 }
 

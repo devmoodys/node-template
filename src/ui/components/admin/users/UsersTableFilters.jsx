@@ -4,7 +4,7 @@ import cx from "classnames";
 
 export default function UsersTableFilters({
   filterRole,
-  filterCompany,
+  setCompanyId,
   filterStatus,
   companies
 }) {
@@ -29,7 +29,7 @@ export default function UsersTableFilters({
           "ms-column-3"
         )}
       >
-        <select type="select" onChange={filterCompany.bind(this)}>
+        <select type="select" onChange={setCompanyId}>
           <option value="all">all</option>
           {companies.map((company, idx) => {
             const { company_name, id } = company;
@@ -60,7 +60,7 @@ export default function UsersTableFilters({
 
 UsersTableFilters.propTypes = {
   filterRole: PropTypes.func.isRequired,
-  filterCompany: PropTypes.func.isRequired,
+  setCompanyId: PropTypes.func.isRequired,
   filterStatus: PropTypes.func.isRequired,
   companies: PropTypes.array
 };

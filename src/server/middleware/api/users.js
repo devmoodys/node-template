@@ -26,14 +26,14 @@ import { randomBase64String } from "helpers/strings";
 import authenticationClient from "server/middleware/externalAPI/v1/authenticationClient";
 
 export async function users(req, res) {
-  const companyId = req.user.company_id;
+  const currentUserCompanyId = req.user.company_id;
   const role = req.user.role;
-  const { page } = req.query;
+  const { page, companyId } = req.query;
   let users;
   if (role === "superadmin") {
-    users = await allUsers(page);
+    users = await allUsers(companyId || "all", page);
   } else if (role === "admin") {
-    users = await allUsersOfCompany(companyId, page);
+    users = await allUsersOfCompany(currentUserCompanyId, page);
   }
   res.json(users);
 }

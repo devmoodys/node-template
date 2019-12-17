@@ -173,8 +173,8 @@ export async function allActiveUsersOfCompany(companyId) {
   );
 }
 
-export async function allUsers(page) {
-  const users = await apiClient.getUsers("email", "all", page);
+export async function allUsers(companyId, page) {
+  const users = await apiClient.getUsers("company_id", companyId, page);
   users.sort((userA, userB) => {
     return userA.email >= userB.email ? 1 : -1;
   });

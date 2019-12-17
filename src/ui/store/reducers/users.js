@@ -8,7 +8,6 @@ import {
   USERS_STATUS_UPDATE_SUCCESSFUL,
   USER_DELETING,
   USER_DELETE_SUCCESSFUL,
-  FILTER_USERS_BY_COMPANY,
   FILTER_USERS_BY_ROLE,
   FILTER_USERS_BY_STATUS
 } from "ui/store/actions/users";
@@ -61,10 +60,6 @@ export default function users(
     }
     case USER_DELETE_SUCCESSFUL: {
       return merge(state, { status: DELETED });
-    }
-    case FILTER_USERS_BY_COMPANY: {
-      const { companyId } = action;
-      return runFiltersAndReturnState(state, action, companyId);
     }
     case FILTER_USERS_BY_ROLE: {
       const { role } = action;
