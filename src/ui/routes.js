@@ -9,6 +9,8 @@ import UsersDashboard from "ui/components/admin/users/UsersDashboard";
 import AddNewUserPage from "ui/components/admin/users/AddNewUserPage";
 import CompanyDashboard from "./components/admin/Company/CompanyDashboard";
 import AddNewCompanyPage from "./components/admin/Company/AddNewCompanyPage";
+import BadgeWidget from "./components/widgets/BadgeWidget.jsx";
+import BadgeWidgetV2 from "./components/widgets/BadgeWidgetV2.jsx";
 import ResetPassword from "./components/account/ResetPassword.jsx";
 
 export default [
@@ -24,6 +26,8 @@ export default [
       { path: "/admin", component: AdminHomePage },
       { path: "/verified", component: VerifiedLoginPapge },
       { path: "/login", component: MainLoginPage },
+      { exact: true, path: "/widget/badge", component: BadgeWidget },
+      { exact: true, path: "/widget/badge/v2", component: BadgeWidgetV2 },
       // { path: "/cmm/login", component: CmmLoginPage },
       { exact: true, path: "/", component: HomePage },
       { component: NotFound }

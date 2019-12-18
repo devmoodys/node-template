@@ -9,13 +9,16 @@ export async function getBadge(queryString) {
   let response;
   if (lat && long) {
     response = await externalApiFetch(
-      `/api/v1/badge/reverse?${stringify({ lat, long })}`,
+      `${process.env.METROPOLIS_URL}api/v1/badge/reverse?${stringify({
+        lat,
+        long
+      })}`,
       null,
       token
     );
   } else if (address) {
     response = await externalApiFetch(
-      `/api/v1/badge?${stringify({ address })}`,
+      `${process.env.METROPOLIS_URL}api/v1/badge?${stringify({ address })}`,
       null,
       token
     );

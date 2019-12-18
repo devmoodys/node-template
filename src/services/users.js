@@ -17,6 +17,7 @@ function toUser(row) {
     terms_accepted_at: termsAcceptedAt,
     role,
     company_id,
+    company_name,
     status,
     notice_email_sent,
     login_types
@@ -27,6 +28,7 @@ function toUser(row) {
     termsAcceptedAt,
     role,
     company_id,
+    company_name,
     status,
     notice_email_sent,
     login_types
@@ -143,6 +145,12 @@ export async function acceptTermsOfService(user) {
 
 export async function allUsersOfCompany(companyId, page) {
   const users = await apiClient.getUsers("company_id", companyId, page);
+  const company = await getCompany(companyId);
+  if (company) {
+    users.forEach(user => {
+      user.company_name = company.company_name;
+    });
+  }
   users.sort((userA, userB) => {
     return userA.email >= userB.email ? 1 : -1;
   });
@@ -175,6 +183,23 @@ export async function allActiveUsersOfCompany(companyId) {
 
 export async function allUsers(companyId, page) {
   const users = await apiClient.getUsers("company_id", companyId, page);
+  if (companyId === "all") {
+    await Promise.all(
+      users.map(async user => {
+        const company = await getCompany(user.company_id);
+        if (company) {
+          user.company_name = company.company_name;
+        }
+      })
+    );
+  } else {
+    const company = await getCompany(companyId);
+    if (company) {
+      users.forEach(user => {
+        user.company_name = company.company_name;
+      });
+    }
+  }
   users.sort((userA, userB) => {
     return userA.email >= userB.email ? 1 : -1;
   });
