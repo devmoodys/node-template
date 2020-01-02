@@ -157,11 +157,14 @@ export async function getParcelAddresses(lat, long, map_dmp_id) {
       }
     );
     const responseBody = await response.json();
+
     if (!response.ok) {
       throw new Error(responseBody.error.message);
     }
     return responseBody;
   } catch (error) {
+    console.log(error);
+
     return [];
   }
 }

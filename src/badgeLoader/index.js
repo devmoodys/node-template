@@ -45,7 +45,7 @@ function setFrameSource(
   middleColumnText
 ) {
   if (lat && long) {
-    frame.src = metropolisUrl(
+    frame.src = clsUrl(
       `/widget/badge${
         badgeType ? `/v2` : ""
       }?lat=${lat}&long=${long}&styles=${encodeURIComponent(
@@ -59,7 +59,7 @@ function setFrameSource(
       }`
     );
   } else if (address) {
-    frame.src = metropolisUrl(
+    frame.src = clsUrl(
       `/widget/badge${
         badgeType ? `/v2` : ""
       }?address=${address}&styles=${encodeURIComponent(
@@ -147,8 +147,8 @@ function handleWindowMessage(event) {
   }
 }
 
-function metropolisUrl(absPath = "") {
-  return process.env.METROPOLIS_URL.replace(/\/$/, "") + absPath;
+function clsUrl(absPath = "") {
+  return process.env.CLS_URL.replace(/\/$/, "") + absPath;
 }
 
 window.addEventListener("message", handleWindowMessage);

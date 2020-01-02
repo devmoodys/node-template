@@ -11,7 +11,7 @@ export default class AuthenticationClient {
     const response = await this.client.post("/oauth/token/", {
       client_id: process.env.CLS_CLIENT_ID,
       client_secret: process.env.CLS_CLIENT_SECRET,
-      audience: process.env.METROPOLIS_URL.replace(/\/$/, ""),
+      audience: process.env.CLS_URL.replace(/\/$/, ""),
       grant_type: "client_credentials"
     });
     const result = await response.json();

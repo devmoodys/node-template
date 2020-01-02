@@ -8,7 +8,7 @@ const jwtVerify = jwt({
     jwksRequestsPerMinute: 5,
     jwksUri: `${process.env.AUTH0_ISSUER}.well-known/jwks.json`
   }),
-  audience: process.env.METROPOLIS_URL.replace(/\/$/, ""),
+  audience: process.env.CLS_URL.replace(/\/$/, ""),
   issuer: process.env.AUTH0_ISSUER,
   algorithms: ["RS256"]
 });

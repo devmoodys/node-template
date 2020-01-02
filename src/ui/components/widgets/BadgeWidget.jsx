@@ -55,7 +55,7 @@ class BadgeWidget extends React.Component {
       const link =
         lat && long
           ? `${
-              process.env.METROPOLIS_URL
+              process.env.CLS_URL
             }?lat=${lat}&long=${long}&styles=${encodeURIComponent(
               styles
             )}&type=${typeOverride}&token=${encodeURIComponent(token)}&getPin=${
@@ -64,7 +64,7 @@ class BadgeWidget extends React.Component {
               clsData.clientRequesting
             }&userNameRequesting=${userNameRequesting}`
           : `${
-              process.env.METROPOLIS_URL
+              process.env.CLS_URL
             }?address=${address}&styles=${encodeURIComponent(
               styles
             )}&type=${typeOverride}&token=${encodeURIComponent(token)}&getPin=${
