@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "abort-controller": "^3.0.0",
-    "aws-sdk": "^2.407.0",
+    "aws-sdk": "^2.814.0",
     "axios": "^0.18.0",
     "body-parser": "^1.18.2",
     "bull": "^3.4.2",
