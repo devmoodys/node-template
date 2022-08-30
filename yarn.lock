@@ -8046,10 +8046,10 @@ mobius1-selectr@2.4.10:
   resolved "https://registry.yarnpkg.com/mobius1-selectr/-/mobius1-selectr-2.4.10.tgz#98f29116e9461b7be19b8f380dabd7dc1253a861"
   integrity sha512-U/pQ8jZwO7z3Mf9OYzJR6AKfleF5jSBIueKKxGMr/tgyLuTWgchgFyeaXpAIz3Cbp+7eIN1hw5D2gxc4cNnOkQ==
 
-moment-timezone@^0.5.14, moment-timezone@^0.5.25, moment-timezone@^0.5.x:
-  version "0.5.27"
-  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.27.tgz#73adec8139b6fe30452e78f210f27b1f346b8877"
-  integrity sha512-EIKQs7h5sAsjhPCqN6ggx6cEbs94GK050254TIJySD1bzoM5JTYDwAU1IoVOeTOL6Gm27kYJ51/uuvq1kIlrbw==
+moment-timezone@^0.5.25, moment-timezone@^0.5.35, moment-timezone@^0.5.x:
+  version "0.5.35"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.35.tgz#6fa2631bdbe8ff04f6b8753f7199516be6dc9839"
+  integrity sha512-cY/pBOEXepQvlgli06ttCTKcIf8cD1nmNwOKQQAdHBqYApQSpAqotBMX0RJZNgMp6i0PlZuf1mFtnlyEkwyvFw==
   dependencies:
     moment ">= 2.9.0"
 
